@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DevScreen MVP Work Plan</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --page: #f4f6f5;
+        --surface: #ffffff;
+        --ink: #17201c;
+        --muted: #64706a;
+        --line: #d9dfdc;
+        --green: #147a50;
+        --green-soft: #e8f5ee;
+        --amber: #a55c08;
+        --amber-soft: #fff4df;
+        --code: #202824;
+        --shadow: 0 10px 28px rgb(23 32 28 / 7%);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        background: var(--page);
+        color: var(--ink);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        line-height: 1.5;
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+
+      button,
+      label,
+      summary {
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-bottom: 1px solid var(--line);
+        background: rgb(255 255 255 / 94%);
+        backdrop-filter: blur(12px);
+      }
+
+      .topbar-inner,
+      main {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .topbar-inner {
+        display: flex;
+        min-height: 60px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 750;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 30px;
+        height: 30px;
+        place-items: center;
+        border-radius: 6px;
+        background: var(--ink);
+        color: white;
+        font-size: 13px;
+      }
+
+      .reset-button {
+        min-height: 36px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--surface);
+        color: var(--ink);
+        padding: 7px 12px;
+        cursor: pointer;
+      }
+
+      .reset-button:hover {
+        border-color: #aeb8b3;
+        background: #f9faf9;
+      }
+
+      main {
+        padding: 44px 0 72px;
+      }
+
+      .intro {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 280px;
+        gap: 40px;
+        align-items: end;
+        padding-bottom: 34px;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+        color: var(--green);
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 720px;
+        margin: 0;
+        font-size: clamp(34px, 5vw, 58px);
+        line-height: 1.04;
+        letter-spacing: 0;
+      }
+
+      .lede {
+        max-width: 700px;
+        margin: 18px 0 0;
+        color: var(--muted);
+        font-size: 17px;
+      }
+
+      .progress-panel {
+        border-left: 3px solid var(--green);
+        padding-left: 20px;
+      }
+
+      .progress-value {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .progress-value strong {
+        font-size: 32px;
+      }
+
+      .progress-value span {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .progress-track {
+        height: 9px;
+        margin-top: 10px;
+        overflow: hidden;
+        border-radius: 4px;
+        background: #dfe5e2;
+      }
+
+      .progress-fill {
+        width: 0;
+        height: 100%;
+        background: var(--green);
+        transition: width 220ms ease;
+      }
+
+      .status-line {
+        margin: 10px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .phase-nav {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        margin-bottom: 24px;
+        padding: 4px 0 10px;
+        scrollbar-width: thin;
+      }
+
+      .phase-nav a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--surface);
+        color: var(--muted);
+        padding: 6px 10px;
+        font-size: 13px;
+        text-decoration: none;
+      }
+
+      .phase-nav a.is-done {
+        border-color: #a8d3bc;
+        background: var(--green-soft);
+        color: var(--green);
+        font-weight: 700;
+      }
+
+      .phase-list {
+        display: grid;
+        gap: 14px;
+      }
+
+      .phase {
+        scroll-margin-top: 80px;
+        display: grid;
+        grid-template-columns: 60px minmax(0, 1fr);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .phase.is-done {
+        border-color: #9ecab4;
+      }
+
+      .phase-index {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        border-right: 1px solid var(--line);
+        background: #fafbfa;
+        padding-top: 22px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .phase.is-done .phase-index {
+        background: var(--green-soft);
+        color: var(--green);
+      }
+
+      .phase-body {
+        min-width: 0;
+        padding: 20px 22px;
+      }
+
+      .phase-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .phase-title {
+        margin: 0;
+        font-size: 20px;
+        line-height: 1.25;
+      }
+
+      .phase-goal {
+        margin: 6px 0 0;
+        color: var(--muted);
+      }
+
+      .phase-complete {
+        display: flex;
+        flex: 0 0 auto;
+        min-height: 34px;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 5px 9px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .phase-complete:has(input:checked) {
+        border-color: #9ecab4;
+        background: var(--green-soft);
+        color: var(--green);
+      }
+
+      input[type="checkbox"] {
+        width: 17px;
+        height: 17px;
+        margin: 0;
+        accent-color: var(--green);
+        cursor: pointer;
+      }
+
+      input[type="checkbox"]:disabled {
+        cursor: not-allowed;
+      }
+
+      .criteria {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px 20px;
+        margin: 20px 0 0;
+        padding: 18px 0 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .criterion {
+        display: flex;
+        min-width: 0;
+        align-items: flex-start;
+        gap: 10px;
+        color: #354039;
+        font-size: 14px;
+        cursor: pointer;
+      }
+
+      .criterion input {
+        flex: 0 0 auto;
+        margin-top: 2px;
+      }
+
+      .criterion:has(input:checked) span {
+        color: var(--muted);
+        text-decoration: line-through;
+      }
+
+      details {
+        margin-top: 18px;
+        border-top: 1px dashed var(--line);
+        padding-top: 14px;
+      }
+
+      summary {
+        width: fit-content;
+        color: var(--amber);
+        font-size: 13px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .example {
+        margin: 12px 0 0;
+        border-left: 3px solid #e2a34e;
+        background: var(--amber-soft);
+        padding: 12px 14px;
+        color: #5c421f;
+        font-size: 14px;
+      }
+
+      code {
+        border-radius: 4px;
+        background: rgb(32 40 36 / 9%);
+        padding: 1px 5px;
+        color: var(--code);
+        font-family: "SFMono-Regular", Consolas, monospace;
+        font-size: 0.92em;
+      }
+
+      .rule {
+        margin-top: 28px;
+        border: 1px solid #e8c889;
+        border-radius: 8px;
+        background: var(--amber-soft);
+        padding: 18px 20px;
+      }
+
+      .rule strong {
+        display: block;
+        margin-bottom: 4px;
+        color: #704508;
+      }
+
+      .rule p {
+        margin: 0;
+        color: #6c5738;
+        font-size: 14px;
+      }
+
+      @media (max-width: 760px) {
+        .intro {
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+
+        .progress-panel {
+          max-width: 360px;
+        }
+
+        .phase {
+          grid-template-columns: 44px minmax(0, 1fr);
+        }
+
+        .phase-body {
+          padding: 18px 16px;
+        }
+
+        .phase-header {
+          flex-direction: column;
+          gap: 14px;
+        }
+
+        .criteria {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 440px) {
+        .topbar-inner,
+        main {
+          width: min(100% - 20px, 1120px);
+        }
+
+        .brand span:last-child {
+          display: none;
+        }
+
+        main {
+          padding-top: 30px;
+        }
+
+        .phase {
+          grid-template-columns: 1fr;
+        }
+
+        .phase-index {
+          justify-content: flex-start;
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+          padding: 8px 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <span class="brand-mark">DS</span>
+          <span>DevScreen Work Tracker</span>
+        </div>
+        <button class="reset-button" id="reset-progress" type="button">Reset progress</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">MVP execution plan</p>
+          <h1 id="page-title">Build the product, phase by phase.</h1>
+          <p class="lede">
+            Check the evidence under each phase first. The phase completion box unlocks only when every required outcome is verified.
+          </p>
+        </div>
+        <aside class="progress-panel" aria-label="Overall progress">
+          <div class="progress-value">
+            <strong id="progress-percent">0%</strong>
+            <span id="progress-count">0 of 12 phases</span>
+          </div>
+          <div class="progress-track" aria-hidden="true">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <p class="status-line" id="status-line">Start with Phase 01: Foundation.</p>
+        </aside>
+      </section>
+
+      <nav class="phase-nav" id="phase-nav" aria-label="Jump to phase"></nav>
+      <section class="phase-list" id="phase-list" aria-label="MVP phases"></section>
+
+      <aside class="rule">
+        <strong>MVP scope guard</strong>
+        <p>Do not add video proctoring, recruiter dashboards, heavy anti-cheat, live AI hints, or runtime-generated random questions before all 12 phases are complete.</p>
+      </aside>
+    </main>
+
+    <script>
+      const phases = [
+        {
+          title: "Clean the foundation",
+          goal: "Make the current app stable before product work begins.",
+          checks: [
+            "pnpm lint completes with no errors",
+            "pnpm build completes successfully",
+            "Google login works from a clean browser session",
+            "A profile row is created after first signup",
+          ],
+          example: "Run <code>pnpm lint && pnpm build</code>, sign in with a test Google account, then confirm its row exists in <code>profiles</code> with the correct <code>auth_id</code>.",
+        },
+        {
+          title: "Build the real profile model",
+          goal: "Collect user context that makes later AI evaluation personal.",
+          checks: [
+            "Profile schema stores education, background, target role, stack, and experience",
+            "Drizzle migration is generated and applied",
+            "Onboarding form saves and reloads profile data",
+            "Incomplete users are redirected to onboarding",
+          ],
+          example: "A new user selects <code>Frontend Developer</code>, adds <code>React, TypeScript</code>, saves onboarding, refreshes, and sees the same values with <code>onboarding_completed = true</code>.",
+        },
+        {
+          title: "Create the question bank schema",
+          goal: "Make curated database questions the source of truth.",
+          checks: [
+            "Categories, questions, tags, and question-tag relations exist",
+            "Questions store tier, difficulty, expected points, source, and active state",
+            "Tier values are constrained to beginner, intermediate, or advanced",
+            "Migration applies cleanly to an empty database",
+          ],
+          example: "Insert an active intermediate React question tagged <code>hooks</code> and <code>state</code>, then retrieve it by category, tier, and tag in one database query.",
+        },
+        {
+          title: "Add admin CSV import",
+          goal: "Load a useful curated question set without manual database work.",
+          checks: [
+            "Only authorized admins can access the import page",
+            "CSV validation reports row-level errors",
+            "Missing categories and tags are created safely",
+            "At least 30 valid questions can be imported in one run",
+          ],
+          example: "Upload a 40-row CSV. The result reports <code>38 inserted, 1 skipped, 1 invalid</code> and shows the exact row and reason for the invalid record.",
+        },
+        {
+          title: "Add AI question classification",
+          goal: "Use AI to assist curation while keeping admin control.",
+          checks: [
+            "Classification runs only on the server",
+            "AI output is validated with a strict Zod schema",
+            "Category, tags, tier, difficulty, and points are persisted",
+            "Admin can manually override every AI-assigned field",
+          ],
+          example: "A raw closure question returns structured JSON with <code>JavaScript</code>, <code>closures</code>, <code>intermediate</code>, and <code>8 points</code>; malformed output is rejected and not saved.",
+        },
+        {
+          title: "Build test configuration",
+          goal: "Create locked test attempts from matching curated questions.",
+          checks: [
+            "User can select category, tier, role, and 10/20/30 questions",
+            "Selected questions match the requested filters",
+            "Question order is randomized once and stored",
+            "Refreshing an attempt never changes its questions or order",
+          ],
+          example: "Starting a 10-question intermediate frontend test creates one <code>test_session</code> and exactly 10 ordered <code>test_session_questions</code> that remain unchanged after refresh.",
+        },
+        {
+          title: "Build the answering flow",
+          goal: "Provide a focused, controlled test-taking experience.",
+          checks: [
+            "Only one question and one answer box are shown at a time",
+            "Draft answers survive navigation and refresh",
+            "No hints, model answers, or AI calls appear during the test",
+            "Submitted answers become permanently read-only",
+          ],
+          example: "Write an answer to question 3, move to question 4, refresh, return to question 3, and confirm the draft remains. Submit and confirm editing is blocked.",
+        },
+        {
+          title: "Build AI evaluation",
+          goal: "Evaluate the complete attempt and store one structured report.",
+          checks: [
+            "Prompt includes profile, metadata, questions, answers, and expected points",
+            "Output includes scores, verdict, feedback, gaps, study plan, and next test",
+            "AI output is validated before database insertion",
+            "Reloading a report does not call the AI again",
+          ],
+          example: "Submitting a test creates one report with <code>overallScore: 68</code>, a readiness verdict, ten per-question feedback entries, weak topics, and a recommended retake.",
+        },
+        {
+          title: "Build the report screen",
+          goal: "Turn evaluation data into useful, readable feedback.",
+          checks: [
+            "Overall score, tier, and readiness verdict are immediately visible",
+            "Strong areas and weak areas are separated clearly",
+            "Every question has specific feedback",
+            "Study plan and next action are practical and visible",
+          ],
+          example: "The report says <code>Not interview-ready for intermediate frontend roles</code>, identifies weak rendering knowledge, and recommends specific hooks and async-state study topics.",
+        },
+        {
+          title: "Build the attempt dashboard",
+          goal: "Give users a reliable history of progress and unfinished work.",
+          checks: [
+            "Past attempts show category, tier, role, score, verdict, and date",
+            "Completed attempts link to stored reports",
+            "In-progress attempts can be resumed",
+            "Empty and loading states are handled",
+          ],
+          example: "A user sees two completed React attempts and one in-progress Node.js attempt, opens either report, and resumes the Node.js test from its last saved answer.",
+        },
+        {
+          title: "Add admin review tools",
+          goal: "Keep the curated question bank accurate over time.",
+          checks: [
+            "Admin can filter by category, tier, tag, and active state",
+            "Question text and metadata can be edited",
+            "Questions can be activated, deactivated, or archived",
+            "Normal users cannot access admin operations",
+          ],
+          example: "Filter intermediate React questions tagged <code>performance</code>, correct one difficulty value, deactivate a duplicate, and verify both changes immediately.",
+        },
+        {
+          title: "Harden the complete demo",
+          goal: "Make the full MVP secure, predictable, and presentable.",
+          checks: [
+            "One role/category has enough quality questions for a complete test",
+            "Every core screen has loading and error handling",
+            "Users cannot access another user's attempts or reports",
+            "Signup through final report works end to end without manual fixes",
+          ],
+          example: "Using a fresh account, complete signup, onboarding, a 10-question test, AI evaluation, report review, and dashboard history without database edits or developer intervention.",
+        },
+      ];
+
+      const storageKey = "devscreen-mvp-work-plan-v1";
+      const list = document.querySelector("#phase-list");
+      const nav = document.querySelector("#phase-nav");
+      const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
+
+      function phaseId(index) {
+        return `phase-${String(index + 1).padStart(2, "0")}`;
+      }
+
+      phases.forEach((phase, phaseIndex) => {
+        const id = phaseId(phaseIndex);
+        const article = document.createElement("article");
+        article.className = "phase";
+        article.id = id;
+        article.innerHTML = `
+          <div class="phase-index">${String(phaseIndex + 1).padStart(2, "0")}</div>
+          <div class="phase-body">
+            <div class="phase-header">
+              <div>
+                <h2 class="phase-title">${phase.title}</h2>
+                <p class="phase-goal">${phase.goal}</p>
+              </div>
+              <label class="phase-complete" title="Complete every acceptance check first">
+                <input type="checkbox" class="phase-checkbox" data-phase="${phaseIndex}" disabled />
+                Phase done
+              </label>
+            </div>
+            <div class="criteria" aria-label="Acceptance checks">
+              ${phase.checks
+                .map(
+                  (check, checkIndex) => `
+                    <label class="criterion">
+                      <input type="checkbox" class="criterion-checkbox" data-phase="${phaseIndex}" data-check="${checkIndex}" />
+                      <span>${check}</span>
+                    </label>
+                  `,
+                )
+                .join("")}
+            </div>
+            <details>
+              <summary>Example evidence for completion</summary>
+              <p class="example">${phase.example}</p>
+            </details>
+          </div>
+        `;
+        list.append(article);
+
+        const link = document.createElement("a");
+        link.href = `#${id}`;
+        link.textContent = String(phaseIndex + 1).padStart(2, "0");
+        link.setAttribute("aria-label", `Jump to phase ${phaseIndex + 1}: ${phase.title}`);
+        nav.append(link);
+      });
+
+      function saveState() {
+        const state = {};
+        document.querySelectorAll(".criterion-checkbox").forEach((checkbox) => {
+          state[`p${checkbox.dataset.phase}c${checkbox.dataset.check}`] = checkbox.checked;
+        });
+        document.querySelectorAll(".phase-checkbox").forEach((checkbox) => {
+          state[`p${checkbox.dataset.phase}done`] = checkbox.checked;
+        });
+        localStorage.setItem(storageKey, JSON.stringify(state));
+      }
+
+      function updatePhase(phaseIndex) {
+        const article = document.querySelector(`#${phaseId(phaseIndex)}`);
+        const criteria = [...article.querySelectorAll(".criterion-checkbox")];
+        const done = article.querySelector(".phase-checkbox");
+        const allChecked = criteria.every((checkbox) => checkbox.checked);
+        done.disabled = !allChecked;
+        if (!allChecked) done.checked = false;
+        article.classList.toggle("is-done", done.checked);
+        document.querySelectorAll("#phase-nav a")[phaseIndex].classList.toggle("is-done", done.checked);
+      }
+
+      function updateProgress() {
+        const completed = [...document.querySelectorAll(".phase-checkbox")].filter(
+          (checkbox) => checkbox.checked,
+        ).length;
+        const percent = Math.round((completed / phases.length) * 100);
+        document.querySelector("#progress-percent").textContent = `${percent}%`;
+        document.querySelector("#progress-count").textContent = `${completed} of ${phases.length} phases`;
+        document.querySelector("#progress-fill").style.width = `${percent}%`;
+
+        const status = document.querySelector("#status-line");
+        if (completed === phases.length) {
+          status.textContent = "MVP checklist complete. Verify the full flow once more.";
+        } else {
+          const next = [...document.querySelectorAll(".phase-checkbox")].findIndex(
+            (checkbox) => !checkbox.checked,
+          );
+          status.textContent = `Next: Phase ${String(next + 1).padStart(2, "0")} - ${phases[next].title}.`;
+        }
+      }
+
+      document.querySelectorAll(".criterion-checkbox").forEach((checkbox) => {
+        checkbox.checked = Boolean(saved[`p${checkbox.dataset.phase}c${checkbox.dataset.check}`]);
+        checkbox.addEventListener("change", () => {
+          updatePhase(Number(checkbox.dataset.phase));
+          updateProgress();
+          saveState();
+        });
+      });
+
+      document.querySelectorAll(".phase-checkbox").forEach((checkbox) => {
+        const phaseIndex = Number(checkbox.dataset.phase);
+        updatePhase(phaseIndex);
+        checkbox.checked = checkbox.disabled ? false : Boolean(saved[`p${phaseIndex}done`]);
+        document.querySelector(`#${phaseId(phaseIndex)}`).classList.toggle("is-done", checkbox.checked);
+        document.querySelectorAll("#phase-nav a")[phaseIndex].classList.toggle("is-done", checkbox.checked);
+        checkbox.addEventListener("change", () => {
+          document.querySelector(`#${phaseId(phaseIndex)}`).classList.toggle("is-done", checkbox.checked);
+          document.querySelectorAll("#phase-nav a")[phaseIndex].classList.toggle("is-done", checkbox.checked);
+          updateProgress();
+          saveState();
+        });
+      });
+
+      document.querySelector("#reset-progress").addEventListener("click", () => {
+        if (!window.confirm("Reset every phase and acceptance check?")) return;
+        localStorage.removeItem(storageKey);
+        document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+          checkbox.checked = false;
+        });
+        phases.forEach((_, index) => updatePhase(index));
+        updateProgress();
+      });
+
+      updateProgress();
+    </script>
+  </body>
+</html>

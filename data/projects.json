@@ -29,5 +29,15 @@
     "publishedAt": "2026-06-19T05:12:03.383Z",
     "updatedAt": "2026-06-19T05:12:03.383Z",
     "path": "/projects/devscreen-opslab-devops-path/"
+  },
+  {
+    "slug": "devscreen-mvp-work-plan",
+    "title": "DevScreen MVP Work Plan",
+    "description": "A day-by-day execution plan for building the DevScreen curated mock-interview MVP.",
+    "status": "active",
+    "pinned": false,
+    "publishedAt": "2026-06-19T09:49:18.066Z",
+    "updatedAt": "2026-06-19T09:49:18.066Z",
+    "path": "/projects/devscreen-mvp-work-plan/"
   }
 ]
