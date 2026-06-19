@@ -4,90 +4,121 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>kontxt-cli | 15-Day Social Campaign</title>
+  <meta name="description" content="A practical 15-day LinkedIn and X campaign for kontxt-cli, with real use cases and platform-ready copy.">
   <style>
-    :root { color-scheme: light; --ink:#171717; --muted:#626262; --line:#d8d8d3; --paper:#f7f7f4; --panel:#fff; --accent:#176b4d; --x:#111; --linkedin:#0a66c2; }
-    * { box-sizing: border-box; }
-    body { margin:0; background:var(--paper); color:var(--ink); font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; letter-spacing:0; }
-    button,input { font:inherit; letter-spacing:0; }
-    header { border-bottom:1px solid var(--line); background:#fff; }
-    .header-inner,.layout { width:min(1180px,calc(100% - 32px)); margin:auto; }
-    .header-inner { padding:28px 0 22px; display:grid; gap:14px; }
-    .eyebrow { color:var(--accent); font-size:.75rem; font-weight:800; text-transform:uppercase; }
-    h1 { margin:0; max-width:760px; font-size:clamp(2rem,5vw,4rem); line-height:1.02; }
-    .intro { margin:0; max-width:760px; color:var(--muted); line-height:1.6; }
-    .links { display:flex; flex-wrap:wrap; gap:16px; }
-    .links a { color:var(--ink); font-weight:700; text-underline-offset:3px; }
-    .toolbar { position:sticky; top:0; z-index:10; border-bottom:1px solid var(--line); background:rgba(247,247,244,.96); backdrop-filter:blur(10px); }
-    .toolbar-inner { width:min(1180px,calc(100% - 32px)); margin:auto; padding:12px 0; display:flex; gap:10px; align-items:center; }
-    .search { min-width:0; flex:1; border:1px solid var(--line); background:#fff; padding:10px 12px; border-radius:6px; }
-    .filter { border:1px solid var(--line); background:#fff; padding:10px 12px; border-radius:6px; cursor:pointer; font-weight:700; }
-    .filter.active { color:#fff; background:var(--ink); border-color:var(--ink); }
-    .layout { padding:28px 0 64px; display:grid; gap:20px; }
-    article { border:1px solid var(--line); background:var(--panel); border-radius:8px; overflow:hidden; }
-    .day-head { padding:20px; border-bottom:1px solid var(--line); display:grid; grid-template-columns:auto 1fr; gap:14px; align-items:start; }
-    .day-number { width:44px; height:44px; border-radius:6px; background:var(--ink); color:#fff; display:grid; place-items:center; font-weight:800; }
-    h2 { margin:0 0 8px; font-size:1.25rem; }
-    .useful,.example { margin:4px 0 0; color:var(--muted); line-height:1.5; }
-    .useful strong,.example strong { color:var(--ink); }
-    .command { margin-top:12px; display:inline-block; padding:7px 9px; border-radius:4px; background:#efefeb; font:600 .85rem ui-monospace,SFMono-Regular,Menlo,monospace; }
-    .posts { display:grid; grid-template-columns:1fr 1fr; }
-    .post { min-width:0; padding:20px; }
-    .post + .post { border-left:1px solid var(--line); }
-    .post-top { display:flex; justify-content:space-between; gap:12px; align-items:center; margin-bottom:14px; }
-    .platform { font-size:.75rem; font-weight:800; text-transform:uppercase; }
-    .platform.linkedin { color:var(--linkedin); }
-    .platform.x { color:var(--x); }
-    .copy { border:1px solid var(--line); background:#fff; border-radius:5px; padding:7px 10px; cursor:pointer; font-weight:700; }
-    .copy:hover { border-color:var(--ink); }
-    .content { white-space:pre-wrap; line-height:1.55; font-size:.94rem; }
-    .count { margin-top:12px; color:var(--muted); font-size:.78rem; }
-    .asset { padding:14px 20px; border-top:1px solid var(--line); background:#fafaf8; color:var(--muted); font-size:.88rem; }
-    .asset strong { color:var(--ink); }
+    :root { color-scheme:light; --page:#f4f6f5; --surface:#fff; --ink:#17201c; --muted:#64706a; --line:#d9dfdc; --green:#147a50; --green-soft:#e8f5ee; --amber:#a55c08; --amber-soft:#fff4df; --linkedin:#0a66c2; --shadow:0 10px 28px rgb(23 32 28 / 7%); }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; min-width:320px; background:var(--page); color:var(--ink); font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; line-height:1.5; letter-spacing:0; }
+    button,input,summary { font:inherit; letter-spacing:0; }
+    button,summary { -webkit-tap-highlight-color:transparent; }
+    .topbar { position:sticky; top:0; z-index:20; border-bottom:1px solid var(--line); background:rgb(255 255 255 / 94%); backdrop-filter:blur(12px); }
+    .topbar-inner,main { width:min(1120px,calc(100% - 32px)); margin:0 auto; }
+    .topbar-inner { display:flex; min-height:60px; align-items:center; justify-content:space-between; gap:16px; }
+    .brand { display:flex; align-items:center; gap:10px; font-weight:750; }
+    .brand-mark { display:grid; width:30px; height:30px; place-items:center; border-radius:6px; background:var(--ink); color:#fff; font-size:12px; }
+    .top-links { display:flex; align-items:center; gap:8px; }
+    .top-links a { min-height:36px; border:1px solid var(--line); border-radius:6px; background:var(--surface); color:var(--ink); padding:7px 11px; font-size:13px; font-weight:700; text-decoration:none; }
+    .top-links a:hover { border-color:#aeb8b3; background:#f9faf9; }
+    main { padding:44px 0 72px; }
+    .intro { display:grid; grid-template-columns:minmax(0,1fr) 280px; gap:40px; align-items:end; padding-bottom:30px; }
+    .eyebrow { margin:0 0 8px; color:var(--green); font-size:13px; font-weight:800; text-transform:uppercase; }
+    h1 { max-width:720px; margin:0; font-size:clamp(34px,5vw,58px); line-height:1.04; letter-spacing:0; }
+    .lede { max-width:700px; margin:18px 0 0; color:var(--muted); font-size:17px; }
+    .summary-panel { border-left:3px solid var(--green); padding-left:20px; }
+    .summary-value { display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
+    .summary-value strong { font-size:32px; }
+    .summary-value span { color:var(--muted); font-size:13px; }
+    .summary-track { height:9px; margin-top:10px; overflow:hidden; border-radius:4px; background:#dfe5e2; }
+    .summary-fill { width:100%; height:100%; background:var(--green); }
+    .summary-note { margin:10px 0 0; color:var(--muted); font-size:13px; }
+    .controls { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:12px; margin-bottom:14px; }
+    .search { min-width:0; min-height:38px; border:1px solid var(--line); border-radius:6px; background:var(--surface); color:var(--ink); padding:8px 11px; }
+    .filters { display:flex; gap:6px; }
+    .filter { min-height:38px; border:1px solid var(--line); border-radius:6px; background:var(--surface); color:var(--muted); padding:7px 11px; cursor:pointer; font-size:13px; font-weight:700; }
+    .filter.active { border-color:#a8d3bc; background:var(--green-soft); color:var(--green); }
+    .day-nav { display:flex; gap:8px; overflow-x:auto; margin-bottom:24px; padding:4px 0 10px; scrollbar-width:thin; }
+    .day-nav a { flex:0 0 auto; border:1px solid var(--line); border-radius:6px; background:var(--surface); color:var(--muted); padding:6px 10px; font-size:13px; text-decoration:none; }
+    .day-list { display:grid; gap:14px; }
+    .day { scroll-margin-top:80px; display:grid; grid-template-columns:60px minmax(0,1fr); border:1px solid var(--line); border-radius:8px; background:var(--surface); box-shadow:var(--shadow); overflow:hidden; }
+    .day-index { display:flex; align-items:flex-start; justify-content:center; border-right:1px solid var(--line); background:#fafbfa; padding-top:22px; color:var(--muted); font-size:13px; font-weight:800; }
+    .day-body { min-width:0; padding:20px 22px; }
+    .day-header { display:flex; align-items:flex-start; justify-content:space-between; gap:20px; }
+    h2 { margin:0; font-size:20px; line-height:1.25; }
+    .goal { margin:6px 0 0; color:var(--muted); }
+    .command { flex:0 0 auto; border:1px solid var(--line); border-radius:6px; background:#fafbfa; padding:6px 9px; color:#202824; font:600 12px "SFMono-Regular",Consolas,monospace; }
+    .use-cases { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px 24px; margin:20px 0 0; padding:18px 0 0; border-top:1px solid var(--line); }
+    .use-case { min-width:0; color:#354039; font-size:14px; }
+    .use-case strong { display:block; margin-bottom:3px; color:var(--green); font-size:12px; text-transform:uppercase; }
+    .post-details { margin-top:18px; border-top:1px dashed var(--line); padding-top:14px; }
+    .post-details + .post-details { margin-top:12px; }
+    .post-details summary { display:flex; width:100%; align-items:center; justify-content:space-between; gap:12px; color:var(--amber); font-size:13px; font-weight:800; cursor:pointer; list-style:none; }
+    .post-details summary::-webkit-details-marker { display:none; }
+    .post-details summary::before { content:"▸"; margin-right:6px; }
+    .post-details[open] summary::before { content:"▾"; }
+    .summary-label { margin-right:auto; }
+    .char-count { color:var(--muted); font-weight:600; }
+    .post-box { margin-top:12px; border-left:3px solid #e2a34e; background:var(--amber-soft); padding:14px; color:#4e3c23; font-size:14px; }
+    .post-actions { display:flex; justify-content:flex-end; margin-bottom:10px; }
+    .copy { min-height:32px; border:1px solid #dec18b; border-radius:5px; background:#fffaf0; color:#704508; padding:5px 9px; cursor:pointer; font-size:12px; font-weight:800; }
+    .content { white-space:pre-wrap; overflow-wrap:anywhere; }
+    .proof { margin-top:12px; border-left:3px solid var(--green); background:var(--green-soft); padding:11px 13px; color:#315c49; font-size:13px; }
+    .rule { margin-top:28px; border:1px solid #e8c889; border-radius:8px; background:var(--amber-soft); padding:18px 20px; }
+    .rule strong { display:block; margin-bottom:4px; color:#704508; }
+    .rule p { margin:0; color:#6c5738; font-size:14px; }
     .hidden { display:none !important; }
-    @media (max-width:760px) { .toolbar-inner { flex-wrap:wrap; } .search { flex-basis:100%; } .posts { grid-template-columns:1fr; } .post + .post { border-left:0; border-top:1px solid var(--line); } .day-head { grid-template-columns:1fr; } }
-    @media print { .toolbar,.copy { display:none; } body { background:#fff; } article { break-inside:avoid; } .layout { width:100%; } }
+    .empty { border:1px solid var(--line); border-radius:8px; background:var(--surface); padding:28px; color:var(--muted); text-align:center; }
+    @media (max-width:760px) { .intro { grid-template-columns:1fr; gap:24px; } .summary-panel { max-width:360px; } .controls { grid-template-columns:1fr; } .day { grid-template-columns:44px minmax(0,1fr); } .day-body { padding:18px 16px; } .day-header { flex-direction:column; gap:12px; } .use-cases { grid-template-columns:1fr; } }
+    @media (max-width:440px) { .topbar-inner,main { width:min(100% - 20px,1120px); } .brand span:last-child { display:none; } .top-links a { padding:7px 9px; } main { padding-top:30px; } .filters { overflow-x:auto; } .day { grid-template-columns:1fr; } .day-index { justify-content:flex-start; border-right:0; border-bottom:1px solid var(--line); padding:8px 16px; } }
+    @media print { .topbar,.controls,.day-nav,.copy { display:none; } body { background:#fff; } .day { break-inside:avoid; box-shadow:none; } details { display:block; } details > * { display:block; } }
   </style>
 </head>
 <body>
-  <header><div class="header-inner">
-    <div class="eyebrow">15 days / 2 platforms / 1 useful idea per day</div>
-    <h1>kontxt-cli social campaign</h1>
-    <p class="intro">Repo-grounded posts for LinkedIn and X. Each day explains where the feature is useful and gives a concrete example instead of repeating generic launch copy.</p>
-    <div class="links"><a href="https://github.com/knownIndie/kontxt-cli">GitHub repository</a><a href="https://www.npmjs.com/package/kontxt-cli">NPM package</a></div>
+  <header class="topbar"><div class="topbar-inner">
+    <div class="brand"><span class="brand-mark">KX</span><span>kontxt-cli Campaign</span></div>
+    <div class="top-links"><a href="https://github.com/knownIndie/kontxt-cli">GitHub</a><a href="https://www.npmjs.com/package/kontxt-cli">NPM</a></div>
   </div></header>
-  <div class="toolbar"><div class="toolbar-inner">
-    <input class="search" id="search" type="search" placeholder="Search use cases, commands, or posts" aria-label="Search campaign">
-    <button class="filter active" data-filter="all">Both</button>
-    <button class="filter" data-filter="linkedin">LinkedIn</button>
-    <button class="filter" data-filter="x">X</button>
-  </div></div>
-  <main class="layout" id="campaign"></main>
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <div><p class="eyebrow">15-day social campaign</p><h1 id="page-title">Post useful proof, day by day.</h1><p class="lede">Each day connects one kontxt-cli feature to a real developer workflow, then provides platform-ready copy for LinkedIn and X.</p></div>
+      <aside class="summary-panel" aria-label="Campaign summary"><div class="summary-value"><strong>15</strong><span>2 platforms</span></div><div class="summary-track" aria-hidden="true"><div class="summary-fill"></div></div><p class="summary-note">15 practical topics. Every X post stays under 280 characters.</p></aside>
+    </section>
+    <section class="controls" aria-label="Campaign controls">
+      <input class="search" id="search" type="search" placeholder="Search use cases, commands, or posts" aria-label="Search campaign">
+      <div class="filters"><button class="filter active" data-filter="all">Both</button><button class="filter" data-filter="linkedin">LinkedIn</button><button class="filter" data-filter="x">X</button></div>
+    </section>
+    <nav class="day-nav" id="day-nav" aria-label="Jump to day"></nav>
+    <section class="day-list" id="campaign" aria-label="Campaign days"></section>
+    <aside class="rule"><strong>Publishing rule</strong><p>Use a real terminal screenshot or generated output when possible. Do not claim secret safety because complete secret redaction is not implemented.</p></aside>
+  </main>
   <script id="campaign-data" type="application/json">[{"day":1,"title":"Stop sending isolated files","usefulFor":"Debugging behavior that crosses components, helpers, types, and configuration files.","example":"A React form fails after submission. Package the repo so the model can inspect the form, API client, validation schema, and shared types together.","command":"kontxt -e","linkedin":"Most AI coding mistakes start before the prompt: the model receives the wrong files.\n\nIf a React form fails after submission, pasting only the component is rarely enough. The behavior may also depend on an API client, validation schema, shared types, and environment configuration.\n\nI built kontxt to package a repository tree and its file contents into deterministic markdown:\n\nkontxt -e\n\nThat gives ChatGPT, Claude, Cursor, or another LLM a connected view of the code instead of isolated snippets.\n\nIt is a small CLI, not an AI agent. Its job is to make context preparation repeatable.\n\nRepo: https://github.com/knownIndie/kontxt-cli\n\n#aiCoding #cli #developerTools","x":"A coding model cannot trace a bug across a component, API client, schema, and shared types if you paste one file.\n\nkontxt -e packages the repo tree and file contents into markdown so related code stays connected.\n\nhttps://github.com/knownIndie/kontxt-cli\n\n#aiCoding #cli","asset":"Show the command beside a generated markdown section containing several related files."},{"day":2,"title":"Map an unfamiliar repository","usefulFor":"Onboarding to an inherited project or deciding which files deserve closer inspection.","example":"Before changing authentication, generate a summary and ask where session handling, middleware, database models, and protected routes connect.","command":"kontxt -e","linkedin":"Before changing an unfamiliar repository, I want a map of the system, not an answer based on one filename.\n\nA practical use for kontxt:\n\n1. Run kontxt -e.\n2. Give the generated markdown to your LLM.\n3. Ask: \"Trace authentication from login to session validation. Name the files involved and flag anything you could not verify.\"\n\nThis is useful when inheriting a project, reviewing a student codebase, or returning to your own work after a long break.\n\nThe generated context includes the repository tree and file contents, so the answer can point to actual connections instead of guessing from folder names.\n\n#softwareEngineering #aiCoding #developerTools","x":"Useful workflow for an unfamiliar repo:\n\n1. Run kontxt -e\n2. Send the markdown to your LLM\n3. Ask it to trace auth from login to session validation and name every file involved\n\nThis is better than guessing from folder names.\n\n#aiCoding #devtools","asset":"Use a screenshot of the repo tree followed by the prompt and a file-by-file answer."},{"day":3,"title":"Review current local changes","usefulFor":"Finding bugs in modified, staged, and untracked files before the work becomes a commit.","example":"After changing a checkout flow, package only the local changes and ask for regressions, missing validation, and missing tests.","command":"kontxt -e --changed","linkedin":"You usually do not need an entire repository for a review of today's work.\n\nkontxt -e --changed\n\nThis packages changed, staged, and untracked Git files.\n\nExample: after changing a checkout flow, generate that context and ask:\n\n\"Review these changes for regressions, missing validation, and missing tests. Separate confirmed problems from assumptions.\"\n\nThe useful part is the boundary. The model sees the files involved in the current work without spending its attention on the untouched parts of the repo.\n\nSmaller context is not automatically better, but relevant context usually is.\n\n#git #codeReview #aiCoding","x":"Before committing local work:\n\nkontxt -e --changed\n\nThen ask: \"Review these changes for regressions, missing validation, and missing tests. Separate confirmed problems from assumptions.\"\n\nUseful context beats a full repo dump.\n\n#git #codeReview","asset":"Place git status and the generated changed-summary file side by side."},{"day":4,"title":"Check exactly what will be committed","usefulFor":"Reviewing a deliberately staged patch while excluding unfinished local experiments.","example":"Stage the clean fix, leave debugging code unstaged, then generate context only from the staged files.","command":"kontxt -e --staged","linkedin":"Git staging already gives a change set a clear boundary. That makes it useful for focused AI review.\n\nkontxt -e --staged\n\nImagine you have a clean bug fix staged, while temporary logs and another experiment remain unstaged. A changed-files review would mix them together. A staged review only covers what you intend to commit.\n\nA prompt I would use:\n\n\"Act as the final reviewer for this staged patch. Find correctness issues, accidental debug code, and tests that should block the commit.\"\n\nThe tool is useful here because it follows an existing Git workflow instead of inventing another way to select files.\n\n#git #developerExperience #codeReview","x":"Staging is already how developers say: these changes belong together.\n\nkontxt -e --staged\n\nUse it before committing, then ask for correctness issues, accidental debug code, and tests that should block the commit.\n\n#git #codeReview","asset":"Show staged and unstaged files, then show that only staged files appear in the output."},{"day":5,"title":"Review a branch before opening a PR","usefulFor":"Finding branch-level risks and drafting a PR description from actual changes.","example":"Compare a feature branch with main, then ask for breaking changes, migration risks, missing tests, and a factual PR summary.","command":"kontxt -e --since main","linkedin":"A pull request description written from memory usually misses something.\n\nFor branch-level context, kontxt supports:\n\nkontxt -e --since main\n\nIt packages files changed on the current branch since the merge base with main.\n\nThat context is useful for two separate tasks:\n\n1. Review the branch for breaking changes, migration risks, and missing tests.\n2. Draft a PR summary that names the behavior actually changed.\n\nExample prompt:\n\n\"Review this branch against main. List blocking issues first, then write a concise PR description using only evidence in the provided files.\"\n\nThis does not replace a human review. It gives the first reviewer a cleaner starting point.\n\n#pullRequest #git #aiCoding","x":"Before opening a PR:\n\nkontxt -e --since main\n\nAsk the model to find breaking changes, migration risks, and missing tests, then draft a PR summary using only evidence in the branch files.\n\nBetter than writing it from memory.\n\n#git #pullRequest","asset":"Record a short demo from branch command to generated PR review prompt."},{"day":6,"title":"Inspect work stored in a stash","usefulFor":"Reviewing paused experiments without applying them back into the current worktree.","example":"Inspect stash@{1} after switching to an urgent bug-fix branch, then decide whether the old experiment is worth restoring.","command":"kontxt -e --stash 'stash@{1}'","linkedin":"Sometimes the code you need to understand is not in the working tree. It is in a Git stash from three context switches ago.\n\nkontxt can package a stash directly:\n\nkontxt -e --stash\nkontxt -e --stash 'stash@{1}'\n\nExample use: inspect an old feature experiment and ask:\n\n\"Summarize what this stash changes, identify incomplete paths, and tell me whether applying it would conflict conceptually with the current architecture.\"\n\nYou can inspect the saved work without applying it just to assemble context.\n\nThis is not a headline feature. It is useful because it handles a real Git state developers regularly forget about.\n\n#git #cli #developerTools","x":"Old work is often buried in a Git stash.\n\nkontxt -e --stash 'stash@{1}'\n\nPackage it without applying it, then ask what changed, what is incomplete, and whether the experiment is still worth restoring.\n\nSmall feature. Real workflow.\n\n#git #cli","asset":"Show git stash list, the selected reference, and the resulting stash summary filename."},{"day":7,"title":"Start with structure, not every function body","usefulFor":"Understanding architecture in a large JS or TS codebase before requesting detailed implementation analysis.","example":"Use skeleton mode to expose imports, exports, classes, types, functions, and test names while reducing implementation noise.","command":"kontxt -e --skeleton","linkedin":"Full source code is not always the right first context.\n\nWhen the question is architectural, function bodies can hide the shape of the system. kontxt has a skeleton mode for supported JavaScript and TypeScript files:\n\nkontxt -e --skeleton\n\nIt keeps lightweight structure such as imports, exports, declarations, classes, function signatures, types, and test names while stripping bodies where supported.\n\nUseful prompt:\n\n\"Using this skeleton, map module responsibilities and dependency direction. Identify the three files I should inspect in full before changing billing.\"\n\nSkeleton mode is a first pass, not a substitute for source code when implementation details matter.\n\n#typescript #softwareArchitecture #aiCoding","x":"For architecture questions, function bodies can be noise.\n\nkontxt -e --skeleton\n\nIt keeps JS/TS structure such as imports, exports, types, classes, functions, and test names.\n\nUse it to choose which files need full inspection next.\n\n#typescript #aiCoding","asset":"Create a before-and-after view of a TypeScript file in full and skeleton form."},{"day":8,"title":"Split large context deliberately","usefulFor":"Working with repositories that do not fit comfortably in one model request.","example":"Generate 32k parts for a large service and review one bounded chunk at a time while retaining the full repository tree in each part.","command":"kontxt -e --32k","linkedin":"A larger context window does not make irrelevant context free.\n\nFor repositories that do not fit cleanly in one request, kontxt can split the rendered markdown into token-bounded parts:\n\nkontxt -e --32k\nkontxt -e --64k\nkontxt -e --128k\n\nEach part keeps the full repository tree, then includes the file content that fits the selected budget.\n\nExample: use 32k parts to review a large service section by section while preserving the same map of the repository in every request.\n\nThe split is based on the rendered markdown token count, not simply a fixed number of files.\n\nToken limits are a workflow constraint. They should be handled explicitly.\n\n#llm #developerTools #aiCoding","x":"Large repo context should be split deliberately:\n\nkontxt -e --32k\nkontxt -e --64k\nkontxt -e --128k\n\nEach part keeps the full repo tree and stays within the selected rendered-markdown token budget.\n\nUseful for bounded, section-by-section review.\n\n#llm #devtools","asset":"Show a split-output folder with part-001 and part-002, then open the repeated repo tree."},{"day":9,"title":"Use the repository tree for placement decisions","usefulFor":"Deciding where a feature belongs before exposing source code or asking for implementation.","example":"Share only the tree and ask which modules should own rate limiting, its tests, and configuration.","command":"kontxt -t","linkedin":"Not every architecture question needs the source code.\n\nkontxt -t\n\nThis prints the repository tree without writing a summary file.\n\nExample question:\n\n\"Based only on this structure, where should rate limiting live? Name the likely implementation, configuration, and test locations. Mark every answer as a hypothesis until the files are inspected.\"\n\nTree-only context is useful for feature placement, onboarding, and deciding which files to read first.\n\nThe limitation matters: a folder tree shows organization, not runtime behavior. Use it to narrow the search, not to claim certainty about the system.\n\n#softwareArchitecture #cli #developerTools","x":"Sometimes the model only needs the map:\n\nkontxt -t\n\nUse the repo tree to ask where a feature likely belongs and which files to inspect next.\n\nA tree shows organization, not behavior, so treat the answer as a hypothesis.\n\n#softwareArchitecture #cli","asset":"Show tree output with three likely feature locations highlighted."},{"day":10,"title":"Remove noise before sharing context","usefulFor":"Excluding generated output, logs, coverage, local files, and known sensitive paths.","example":"Add dist, coverage, .env, and *.log to .kontxtignore before generating a repository summary.","command":"kontxt -e","linkedin":"Context generation should begin with exclusion, not collection.\n\nkontxt respects .gitignore and .kontxtignore. A practical .kontxtignore might include:\n\ndist\ncoverage\n.env\n*.log\n\nThis removes generated files and obvious local noise before markdown is produced.\n\nWhere is this useful? In any repo where build output can dwarf the source, logs contain irrelevant runtime data, or local files should never be shared with a model.\n\nImportant limitation: ignore rules are not secret redaction. You still need to inspect generated context before sending it outside your machine.\n\nGood context hygiene reduces noise and risk at the same time.\n\n#security #developerTools #aiCoding","x":"Before packaging a repo, exclude noise:\n\ndist\ncoverage\n.env\n*.log\n\nkontxt respects .gitignore and .kontxtignore.\n\nImportant: ignore rules are not secret redaction. Inspect generated context before sharing it with any model.\n\n#security #devtools","asset":"Show a small .kontxtignore and the generated summary with excluded paths absent."},{"day":11,"title":"Keep context portable with markdown","usefulFor":"Reviewing, diffing, archiving, or reusing the same context across different AI tools.","example":"Generate one markdown snapshot, inspect it locally, then use it in ChatGPT or Claude without converting a proprietary format.","command":"kontxt -e -o auth-review.md","linkedin":"kontxt outputs markdown instead of inventing a custom context format.\n\nThat choice is useful because markdown can be:\n\n- inspected before sharing\n- searched and diffed locally\n- archived with project notes\n- pasted into different LLM tools\n- read by another developer without special software\n\nFor example:\n\nkontxt -e -o auth-review.md\n\nYou can review .kontxt/auth-review.md, remove anything unnecessary, and then use the same artifact in ChatGPT, Claude, or another workflow.\n\nPortability matters more than lock-in for a small context tool.\n\n#markdown #developerTools #aiCoding","x":"kontxt outputs markdown because context should be portable.\n\nkontxt -e -o auth-review.md\n\nInspect it, search it, diff it, archive it, or send the same file to different LLM tools.\n\nNo proprietary format required.\n\n#markdown #devtools","asset":"Show the same markdown file opened locally and attached to an AI chat."},{"day":12,"title":"Make context size visible","usefulFor":"Choosing between full, scoped, skeleton, or split output before wasting a model request.","example":"If the full summary is too large, rerun with --changed, --skeleton, or a split budget instead of blindly sending it.","command":"kontxt -e --changed --skeleton","linkedin":"Large context has a cost even when you are not paying an API bill directly.\n\nIt consumes context-window space, increases latency, and can bury the files that actually matter.\n\nkontxt reports token counts and estimated model costs so the size is visible before you use the output.\n\nThat gives you a practical decision:\n\n- full summary for broad system tracing\n- --changed for current work\n- --skeleton for architecture\n- --32k, --64k, or --128k for bounded parts\n\nExample:\n\nkontxt -e --changed --skeleton\n\nUse the smallest context that still contains the evidence required by the question.\n\n#llm #developerExperience #aiCoding","x":"Large context costs latency, attention, and context-window space.\n\nkontxt reports token counts so you can choose:\n\n- full for system tracing\n- --changed for current work\n- --skeleton for architecture\n- split mode for bounded parts\n\n#llm #aiCoding","asset":"Show a token report next to full, changed, and skeleton output sizes."},{"day":13,"title":"Report what was skipped","usefulFor":"Working with real repositories containing images, generated assets, unreadable files, or binary data.","example":"Run against a frontend repo with screenshots and fonts, then check the report instead of assuming every file was included.","command":"kontxt -e","linkedin":"A context generator should not silently pretend it read every file.\n\nReal repositories contain images, fonts, archives, generated assets, and files that may fail to read. kontxt detects binary files, skips them, and surfaces skipped files or read errors in the run summary.\n\nExample: package a frontend repository containing screenshots and font files. The useful result is not binary data dumped into markdown. It is a clear report showing what was excluded.\n\nThat lets you judge whether the generated context is complete enough for the question you plan to ask.\n\nTransparent partial output is more useful than silent failure.\n\n#cli #softwareEngineering #developerTools","x":"Real repos contain images, fonts, archives, and unreadable files.\n\nkontxt skips binary files and reports skipped files or read errors.\n\nThat matters because you should know what the model did not receive before trusting its answer.\n\n#cli #devtools","asset":"Show a run summary listing skipped binary assets and any read errors."},{"day":14,"title":"Turn context into a disciplined review prompt","usefulFor":"Getting evidence-based findings instead of broad AI suggestions.","example":"Generate branch context, then require file references, severity ordering, confirmed facts, assumptions, and missing tests.","command":"kontxt -e --since main","linkedin":"Packaging code is only half the workflow. The review request still needs a clear standard.\n\nAfter running:\n\nkontxt -e --since main\n\nI would use a prompt like this:\n\n\"Review this branch for correctness and regressions. Put blocking findings first. For every finding, name the file and explain the failure path. Separate confirmed issues from assumptions. End with missing tests. Do not praise the code.\"\n\nThis is useful before a PR because it asks for evidence, prioritization, and test gaps instead of generic improvements.\n\nkontxt provides the material. The prompt defines the job.\n\n#codeReview #aiCoding #git","x":"After kontxt -e --since main, ask:\n\n\"Review for correctness and regressions. Put blockers first. Name the file and failure path. Separate confirmed issues from assumptions. End with missing tests.\"\n\nContext provides evidence. The prompt defines the job.\n\n#codeReview","asset":"Use a terminal-to-review screenshot with one finding linked back to a source file."},{"day":15,"title":"What kontxt is and is not","usefulFor":"Setting realistic expectations before asking developers to try an early-stage tool.","example":"Use it as a context-preparation step, while manually checking output because full secret redaction is not implemented.","command":"npx kontxt-cli --help","linkedin":"After 15 days of explaining kontxt, the honest summary is simple.\n\nIt does:\n\n- package repo trees and file contents into markdown\n- scope context with Git state\n- create JS/TS skeleton summaries\n- split output by token budget\n- report token estimates and skipped files\n\nIt does not write code, replace review, or guarantee that sensitive data has been removed. Secret redaction still needs stronger implementation, so generated files must be inspected before sharing.\n\nTry it without a global install:\n\nnpx kontxt-cli --help\n\nThe most useful feedback would be a real workflow where context assembly is still awkward.\n\nRepo: https://github.com/knownIndie/kontxt-cli\nNPM: https://www.npmjs.com/package/kontxt-cli\n\n#buildinpublic #cli #developerTools","x":"kontxt packages code context. It does not write code or replace review.\n\nIt supports Git scopes, JS/TS skeletons, token-bounded splits, and reports. Secret redaction needs work, so inspect output before sharing.\n\nnpx kontxt-cli --help\n\nhttps://github.com/knownIndie/kontxt-cli","asset":"Create one compact screen recording covering install, one scoped run, and the generated markdown."}]</script>
   <script>
     const days = JSON.parse(document.getElementById("campaign-data").textContent);
     const campaign = document.getElementById("campaign");
+    const dayNav = document.getElementById("day-nav");
     const search = document.getElementById("search");
     let platform = "all";
     const esc = value => value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
     function render() {
       const query = search.value.trim().toLowerCase();
-      campaign.innerHTML = days.map(item => {
+      const visible = days.filter(item => {
         const haystack = Object.values(item).join(" ").toLowerCase();
-        if (query && !haystack.includes(query)) return "";
-        return `<article>
-          <div class="day-head"><div class="day-number">${item.day}</div><div>
-            <h2>${esc(item.title)}</h2>
-            <p class="useful"><strong>Useful for:</strong> ${esc(item.usefulFor)}</p>
-            <p class="example"><strong>Example:</strong> ${esc(item.example)}</p>
-            <code class="command">${esc(item.command)}</code>
-          </div></div>
-          <div class="posts">
-            <section class="post linkedin-post ${platform === "x" ? "hidden" : ""}"><div class="post-top"><span class="platform linkedin">LinkedIn</span><button class="copy" data-copy="linkedin" data-day="${item.day}">Copy</button></div><div class="content">${esc(item.linkedin)}</div></section>
-            <section class="post x-post ${platform === "linkedin" ? "hidden" : ""}"><div class="post-top"><span class="platform x">X / Twitter</span><button class="copy" data-copy="x" data-day="${item.day}">Copy</button></div><div class="content">${esc(item.x)}</div><div class="count">${item.x.length}/280 characters</div></section>
+        return !query || haystack.includes(query);
+      });
+      dayNav.innerHTML = visible.map(item => `<a href="#day-${String(item.day).padStart(2,"0")}" aria-label="Jump to day ${item.day}: ${esc(item.title)}">${String(item.day).padStart(2,"0")}</a>`).join("");
+      campaign.innerHTML = visible.map(item => {
+        const number = String(item.day).padStart(2,"0");
+        return `<article class="day" id="day-${number}">
+          <div class="day-index">${number}</div>
+          <div class="day-body">
+            <div class="day-header"><div><h2>${esc(item.title)}</h2><p class="goal">${esc(item.usefulFor)}</p></div><code class="command">${esc(item.command)}</code></div>
+            <div class="use-cases"><div class="use-case"><strong>Useful for</strong>${esc(item.usefulFor)}</div><div class="use-case"><strong>Example workflow</strong>${esc(item.example)}</div></div>
+            <details class="post-details linkedin-post ${platform === "x" ? "hidden" : ""}"><summary><span class="summary-label">LinkedIn post</span><span>Open copy</span></summary><div class="post-box"><div class="post-actions"><button class="copy" data-copy="linkedin" data-day="${item.day}">Copy LinkedIn post</button></div><div class="content">${esc(item.linkedin)}</div></div></details>
+            <details class="post-details x-post ${platform === "linkedin" ? "hidden" : ""}"><summary><span class="summary-label">X post</span><span class="char-count">${item.x.length}/280 characters</span></summary><div class="post-box"><div class="post-actions"><button class="copy" data-copy="x" data-day="${item.day}">Copy X post</button></div><div class="content">${esc(item.x)}</div></div></details>
+            <div class="proof"><strong>Proof asset:</strong> ${esc(item.asset)}</div>
           </div>
-          <div class="asset"><strong>Proof asset:</strong> ${esc(item.asset)}</div>
         </article>`;
-      }).join("");
+      }).join("") || '<div class="empty">No campaign days match this search.</div>';
     }
     document.querySelectorAll(".filter").forEach(button => button.addEventListener("click", () => {
       platform = button.dataset.filter;
@@ -100,8 +131,9 @@
       if (!button) return;
       const item = days.find(day => day.day === Number(button.dataset.day));
       await navigator.clipboard.writeText(item[button.dataset.copy]);
+      const original = button.textContent;
       button.textContent = "Copied";
-      setTimeout(() => { button.textContent = "Copy"; }, 1200);
+      setTimeout(() => { button.textContent = original; }, 1200);
     });
     render();
   </script>
