@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "slug": "phonecam-project-curriculum",
+    "title": "PhoneCam · Project Curriculum",
+    "description": "A project-by-project prerequisite curriculum for building PhoneCam.",
+    "status": "active",
+    "pinned": false,
+    "publishedAt": "2026-06-19T05:03:12.831Z",
+    "updatedAt": "2026-06-19T05:03:12.831Z",
+    "path": "/projects/phonecam-project-curriculum/"
+  }
+]

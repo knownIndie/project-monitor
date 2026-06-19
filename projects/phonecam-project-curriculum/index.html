@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A project-by-project prerequisite curriculum for building PhoneCam.">
+  <title>PhoneCam · Project Curriculum</title>
+  <style>
+    :root { --ink:#17211b; --muted:#637069; --paper:#f4f3ed; --card:#fffefa; --line:#d9ddd5; --green:#164f3c; --lime:#d8f64f; --orange:#ff7648; --blue:#245bda; --shadow:0 18px 60px rgba(23,33,27,.08); }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height:1.65; }
+    a { color:inherit; }
+    .skip { position:absolute; left:-9999px; }
+    .skip:focus { left:1rem; top:1rem; z-index:100; background:#fff; padding:.7rem 1rem; border-radius:.5rem; }
+    .hero { position:relative; overflow:hidden; background:var(--green); color:#fff; padding:4.5rem max(1.4rem, calc((100vw - 1180px)/2)) 5rem; }
+    .hero::after { content:""; position:absolute; width:420px; height:420px; right:-100px; top:-170px; border:80px solid rgba(216,246,79,.2); border-radius:50%; }
+    .eyebrow { margin:0 0 1rem; color:var(--lime); font-size:.75rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; }
+    h1 { margin:0; max-width:850px; font-size:clamp(3rem, 8vw, 6.8rem); line-height:.88; letter-spacing:-.07em; }
+    .hero-copy { max-width:690px; margin:1.8rem 0 2rem; color:#dbe9e2; font-size:clamp(1.05rem,2vw,1.25rem); }
+    .hero-meta { display:flex; flex-wrap:wrap; gap:.7rem; }
+    .hero-meta span { border:1px solid rgba(255,255,255,.22); background:rgba(255,255,255,.08); border-radius:999px; padding:.55rem .9rem; font-size:.82rem; }
+    .layout { max-width:1240px; margin:-2.2rem auto 0; padding:0 1.4rem 5rem; position:relative; display:grid; grid-template-columns:260px minmax(0,1fr); gap:2rem; align-items:start; }
+    .sidebar { position:sticky; top:1rem; background:#17211b; color:#fff; padding:1rem; border-radius:1rem; max-height:calc(100vh - 2rem); overflow:auto; box-shadow:var(--shadow); }
+    .sidebar-title { margin:.3rem .4rem .8rem; color:#9aaba2; font-size:.68rem; text-transform:uppercase; letter-spacing:.15em; font-weight:800; }
+    .sidebar a { display:flex; gap:.7rem; align-items:center; text-decoration:none; color:#dbe3de; padding:.55rem .45rem; border-radius:.55rem; font-size:.76rem; line-height:1.2; }
+    .sidebar a:hover { background:#26332c; color:#fff; }
+    .sidebar a span { display:grid; place-items:center; min-width:1.65rem; height:1.65rem; border-radius:.4rem; background:#304139; color:var(--lime); font-variant-numeric:tabular-nums; font-weight:800; }
+    main { min-width:0; }
+    .summary { display:grid; grid-template-columns:repeat(4,1fr); background:var(--card); border:1px solid var(--line); border-radius:1rem; overflow:hidden; box-shadow:var(--shadow); margin-bottom:2rem; }
+    .stat { padding:1.3rem; border-right:1px solid var(--line); }
+    .stat:last-child { border:0; }
+    .stat strong { display:block; font-size:1.4rem; line-height:1.2; }
+    .stat span { color:var(--muted); font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; }
+    .phase-divider { display:flex; align-items:center; gap:1rem; margin:3.4rem 0 1.2rem; }
+    .phase-divider::after { content:""; height:1px; background:var(--line); flex:1; }
+    .phase-divider span { color:var(--green); font-size:.75rem; font-weight:900; text-transform:uppercase; letter-spacing:.14em; }
+    .project-card, .support-card { scroll-margin-top:1rem; background:var(--card); border:1px solid var(--line); border-radius:1rem; margin-bottom:1.2rem; box-shadow:0 8px 26px rgba(23,33,27,.04); overflow:hidden; }
+    .project-head { display:flex; gap:1rem; align-items:center; padding:1.5rem 1.7rem; border-bottom:1px solid var(--line); background:#fbfbf6; }
+    .project-index { display:grid; place-items:center; width:3.1rem; height:3.1rem; flex:0 0 auto; border-radius:.75rem; background:var(--lime); color:var(--green); font-size:1.1rem; font-weight:900; }
+    .project-head h2 { margin:0; font-size:clamp(1.45rem,3vw,2rem); line-height:1.1; letter-spacing:-.035em; }
+    .phase { margin:0 0 .25rem; color:var(--muted); font-size:.68rem; font-weight:800; text-transform:uppercase; letter-spacing:.13em; }
+    .project-content, .support-card { padding:1rem 1.7rem 1.7rem; }
+    .project-content h3, .project-content h4 { margin:1.7rem 0 .55rem; line-height:1.2; }
+    .project-content h3 { font-size:1rem; color:var(--green); text-transform:uppercase; letter-spacing:.09em; }
+    .project-content p, .support-card p { color:#48544d; }
+    .project-content ul, .project-content ol, .support-card ul, .support-card ol { padding-left:1.25rem; }
+    li { margin:.35rem 0; }
+    li::marker { color:var(--orange); font-weight:800; }
+    strong { color:var(--ink); }
+    code { background:#edf0ea; color:#174a39; padding:.15rem .38rem; border-radius:.3rem; font: .88em ui-monospace, SFMono-Regular, Menlo, monospace; }
+    pre { margin:1.2rem 0; padding:1.25rem; overflow:auto; border-radius:.8rem; background:#17211b; color:#e9f1ec; line-height:1.75; }
+    pre code { background:none; color:inherit; padding:0; }
+    .project-content a, .support-card a { color:var(--blue); font-weight:650; text-decoration-thickness:1px; text-underline-offset:3px; }
+    .project-content a span, .support-card a span { margin-left:.25rem; font-size:.75em; }
+    .support-card { padding:1.5rem 1.7rem 1.8rem; }
+    .support-card h2 { margin:.2rem 0 1rem; font-size:clamp(1.5rem,3vw,2.2rem); letter-spacing:-.04em; }
+    .table-wrap { overflow-x:auto; margin:1rem 0; }
+    table { width:100%; border-collapse:collapse; font-size:.9rem; }
+    th, td { padding:.8rem; text-align:left; border-bottom:1px solid var(--line); }
+    th { background:#edf0ea; color:var(--green); font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; }
+    footer { max-width:1240px; margin:0 auto; padding:0 1.4rem 3rem; color:var(--muted); font-size:.8rem; text-align:right; }
+    @media (max-width:900px) { .layout { grid-template-columns:1fr; } .sidebar { position:relative; top:auto; max-height:none; display:flex; overflow-x:auto; gap:.3rem; } .sidebar-title { display:none; } .sidebar a { min-width:max-content; } .summary { grid-template-columns:repeat(2,1fr); } .stat:nth-child(2) { border-right:0; } .stat:nth-child(-n+2) { border-bottom:1px solid var(--line); } }
+    @media (max-width:560px) { .hero { padding-top:3.2rem; } h1 { font-size:3.7rem; } .layout { padding-inline:.75rem; } .summary { grid-template-columns:1fr 1fr; } .stat { padding:1rem; } .project-head, .project-content, .support-card { padding-left:1.1rem; padding-right:1.1rem; } .project-index { width:2.6rem; height:2.6rem; } }
+    @media print { .hero { padding:2rem; } .sidebar { display:none; } .layout { display:block; margin:0; } .project-card, .support-card { break-inside:avoid; box-shadow:none; } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#curriculum">Skip to curriculum</a>
+  <header class="hero">
+    <p class="eyebrow">GitHub-based skill assessment · 2026</p>
+    <h1>PhoneCam<br>curriculum.</h1>
+    <p class="hero-copy">A hard, sequential path from browser camera access to a reliable native macOS virtual camera. Each project removes one technical unknown before the final integration.</p>
+    <div class="hero-meta"><span>13 prerequisite projects</span><span>395–645 focused hours</span><span>12–20 months likely</span><span>Tests required at every checkpoint</span></div>
+  </header>
+  <div class="layout">
+    <nav class="sidebar" aria-label="Project navigation"><p class="sidebar-title">Project index</p><a href="#project-0-native-toolchain-setup"><span>0</span>Native toolchain setup</a><a href="#project-1-camera-control-panel"><span>1</span>Camera Control Panel</a><a href="#project-2-manual-webrtc-lab"><span>2</span>Manual WebRTC Lab</a><a href="#project-3-secure-qr-pairing-service"><span>3</span>Secure QR Pairing Service</a><a href="#project-4-peercam-web"><span>4</span>PeerCam Web</a><a href="#project-5-swift-session-modeler"><span>5</span>Swift Session Modeler</a><a href="#project-6-macos-pairing-dashboard"><span>6</span>macOS Pairing Dashboard</a><a href="#project-7-native-webrtc-viewer"><span>7</span>Native WebRTC Viewer</a><a href="#project-8-pixel-buffer-workbench"><span>8</span>Pixel Buffer Workbench</a><a href="#project-9-test-pattern-virtual-camera"><span>9</span>Test Pattern Virtual Camera</a><a href="#project-10-framebridge"><span>10</span>FrameBridge</a><a href="#project-11-phonecam-integration"><span>11</span>PhoneCam Integration</a><a href="#project-12-reliability-and-distribution"><span>12</span>Reliability and Distribution</a></nav>
+    <main id="curriculum">
+      <section class="summary" aria-label="Curriculum summary">
+        <div class="stat"><strong>13</strong><span>projects</span></div>
+        <div class="stat"><strong>3</strong><span>technical phases</span></div>
+        <div class="stat"><strong>645h</strong><span>upper estimate</span></div>
+        <div class="stat"><strong>1</strong><span>flagship outcome</span></div>
+      </section>
+      <section class="support-card reveal" id="github-based-skill-assessment"><h2>GitHub-based skill assessment</h2><p>I inspected your current <a href="https://github.com/knownIndie" target="_blank" rel="noreferrer">GitHub profile<span aria-hidden="true">↗</span></a> and excluded RealtimeChat.</p>
+<p>Your actual baseline:</p>
+<ul><li><a href="https://github.com/knownIndie/kontxt-cli" target="_blank" rel="noreferrer">kontxt-cli<span aria-hidden="true">↗</span></a> is your strongest engineering project. It has a published package, build tooling, deterministic behavior, and automated tests.</li><li><a href="https://github.com/knownIndie/luma" target="_blank" rel="noreferrer">Luma<span aria-hidden="true">↗</span></a> proves you understand Next.js, authentication, database modeling, payments, webhooks, and product workflows. It has no tests.</li><li><a href="https://github.com/knownIndie/VoidYoutube" target="_blank" rel="noreferrer">VoidYoutube<span aria-hidden="true">↗</span></a> proves you can work with browser APIs, background service workers, DOM injection, and lifecycle events. It has a known multi-tab race condition and no tests.</li><li><a href="https://github.com/knownIndie/Cloudline" target="_blank" rel="noreferrer">Cloudline<span aria-hidden="true">↗</span></a> is competent React work, but building another ordinary API-based frontend would add almost no value.</li><li><a href="https://github.com/knownIndie/devscreen" target="_blank" rel="noreferrer">DevScreen<span aria-hidden="true">↗</span></a> is still too early to count as strong evidence.</li><li><a href="https://github.com/knownIndie/WeSplit" target="_blank" rel="noreferrer">WeSplit<span aria-hidden="true">↗</span></a> shows minimal SwiftUI exposure, but it is an archived tutorial-sized project. You should still be treated as a Swift beginner.</li><li>Your main weaknesses are native macOS development, automated testing outside kontxt-cli, concurrency, WebRTC, media buffers, and low-level Apple APIs.</li></ul>
+<p>These estimates assume:</p>
+<ul><li>One to two hours daily.</li><li>Mostly documentation-driven work.</li><li>You write the implementation yourself.</li><li>AI is used for explanations and debugging, not generating whole projects.</li><li>Every checkpoint is tested and documented before moving forward.</li></ul></section>
+      <div class="phase-divider"><span>Phase 01 · Web foundation</span></div>
+      <article class="project-card reveal" id="project-0-native-toolchain-setup" data-search="project 0: native toolchain setup">
+    <header class="project-head">
+      <div class="project-index">00</div>
+      <div><p class="phase">Web foundation</p><h2>Native toolchain setup</h2></div>
+    </header>
+    <div class="project-content"><p><strong>Time:</strong> 4 to 8 hours, excluding Xcode download <strong>Calendar:</strong> 1 week</p>
+<h3>Build</h3>
+<ul><li>Install the full Xcode version compatible with your macOS beta.</li><li>Select it with <code>xcode-select</code>.</li><li>Create a basic macOS SwiftUI application.</li><li>Add an XCTest target.</li><li>Learn schemes, targets, signing, breakpoints, and the debug console.</li><li>Rebuild a simple bill-splitting interface without copying WeSplit.</li></ul>
+<h3>Learn</h3>
+<ul><li>Xcode project structure.</li><li>Swift packages.</li><li>Application and test targets.</li><li>Basic SwiftUI state.</li><li>XCTest assertions.</li></ul>
+<h3>Documentation</h3>
+<ul><li><a href="https://developer.apple.com/tutorials/develop-in-swift/" target="_blank" rel="noreferrer">Develop in Swift tutorials<span aria-hidden="true">↗</span></a></li><li><a href="https://developer.apple.com/tutorials/app-dev-training" target="_blank" rel="noreferrer">Develop apps for Apple platforms<span aria-hidden="true">↗</span></a></li><li><a href="https://developer.apple.com/swiftui/get-started/" target="_blank" rel="noreferrer">SwiftUI pathway<span aria-hidden="true">↗</span></a></li></ul>
+<h3>Completion test</h3>
+<ul><li>The Mac app builds from the command line and Xcode.</li><li>At least five unit tests pass.</li><li>You can explain the difference between a project, target, scheme, and package.</li></ul>
+<p>Not resume-worthy.</p></div>
+  </article>
+<article class="project-card reveal" id="project-1-camera-control-panel" data-search="project 1: camera control panel">
+    <header class="project-head">
+      <div class="project-index">01</div>
+      <div><p class="phase">Web foundation</p><h2>Camera Control Panel</h2></div>
+    </header>
+    <div class="project-content"><p><strong>Time:</strong> 8 to 14 hours <strong>Calendar:</strong> 1 to 2 weeks <strong>Stack:</strong> Vite, TypeScript, browser media APIs</p>
+<h3>Product</h3>
+<p>A mobile webpage that controls and previews the phone camera.</p>
+<pre><code>Camera inactive
+[Start Camera]
+
+Camera active
+[Preview]
+1280 × 720 at 30 FPS
+[Switch Camera] [Stop]</code></pre>
+<h3>Build</h3>
+<ul><li>Request camera permission after a button click.</li><li>Prefer the rear camera.</li><li>Display the real selected resolution and frame rate.</li><li>Switch between front and rear cameras.</li><li>Stop every media track when leaving or pressing Stop.</li><li>Handle denied permission and missing cameras.</li><li>Deploy it through HTTPS.</li></ul>
+<h3>Learn</h3>
+<ul><li><code>navigator.mediaDevices</code></li><li><code>getUserMedia</code></li><li><code>MediaStream</code></li><li><code>MediaStreamTrack</code></li><li>Media constraints</li><li>Browser permissions</li><li>Resource cleanup</li></ul>
+<h3>Documentation</h3>
+<ul><li><a href="https://developer.mozilla.org/docs/Web/API/MediaDevices/getUserMedia" target="_blank" rel="noreferrer">MDN getUserMedia<span aria-hidden="true">↗</span></a></li><li>Read <code>MediaStream</code>, <code>MediaStreamTrack</code>, <code>getSettings()</code>, <code>enumerateDevices()</code>, and <code>applyConstraints()</code> from MDN.</li></ul>
+<h3>Testing</h3>
+<ul><li>Unit-test the camera-state reducer.</li><li>Test permission denied.</li><li>Test repeated start and stop.</li><li>Test front and rear switching on the actual phone.</li></ul>
+<p>Not resume-worthy.</p></div>
+  </article>
+<article class="project-card reveal" id="project-2-manual-webrtc-lab" data-search="project 2: manual webrtc lab">
+    <header class="project-head">
+      <div class="project-index">02</div>
+      <div><p class="phase">Web foundation</p><h2>Manual WebRTC Lab</h2></div>
+    </header>
+    <div class="project-content"><p><strong>Time:</strong> 15 to 25 hours <strong>Calendar:</strong> 2 to 3 weeks <strong>Stack:</strong> TypeScript, WebRTC</p>
+<h3>Product</h3>
+<p>Two browser pages that establish a video connection by manually copying signaling data.</p>
+<pre><code>Phone sender
+→ copy SDP offer
+→ paste into receiver
+→ copy SDP answer
+→ paste into sender
+→ exchange ICE
+→ video appears</code></pre>
+<h3>Build</h3>
+<ul><li>Sender captures the phone camera.</li><li>Sender creates an offer.</li><li>Receiver accepts the offer and creates an answer.</li><li>Both pages exchange ICE candidates.</li><li>Receiver displays the remote stream.</li><li>Both sides close tracks and peer connections correctly.</li><li>Add a visible signaling-state timeline.</li></ul>
+<h3>Learn</h3>
+<ul><li><code>RTCPeerConnection</code></li><li>SDP offer and answer</li><li>ICE candidates</li><li>Local and remote descriptions</li><li><code>addTrack</code></li><li><code>ontrack</code></li><li>Connection and signaling states</li></ul>
+<h3>Documentation</h3>
+<ul><li><a href="https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API" target="_blank" rel="noreferrer">MDN WebRTC API<span aria-hidden="true">↗</span></a></li><li><a href="https://developer.mozilla.org/docs/Web/API/WebRTC_API/Signaling_and_video_calling" target="_blank" rel="noreferrer">MDN signaling and video calling<span aria-hidden="true">↗</span></a></li><li><a href="https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Session_lifetime" target="_blank" rel="noreferrer">MDN WebRTC session lifetime<span aria-hidden="true">↗</span></a></li></ul>
+<h3>Completion test</h3>
+<ul><li>You can explain why SDP does not contain the actual video.</li><li>The receiver shows the Android stream.</li><li>Disconnecting releases the camera and network resources.</li><li>Invalid state transitions produce visible errors.</li></ul>
+<p>Not resume-worthy.</p></div>
+  </article>
+<article class="project-card reveal" id="project-3-secure-qr-pairing-service" data-search="project 3: secure qr pairing service">
+    <header class="project-head">
+      <div class="project-index">03</div>
+      <div><p class="phase">Web foundation</p><h2>Secure QR Pairing Service</h2></div>
+    </header>
+    <div class="project-content"><p><strong>Time:</strong> 18 to 30 hours <strong>Calendar:</strong> 2 to 4 weeks <strong>Stack:</strong> TypeScript, Convex, QR generation</p>
+<h3>Product</h3>
+<p>A pairing system without video.</p>
+<pre><code>Desktop creates session
+→ QR appears
+→ Android scans
+→ joins correct room
+→ desktop updates immediately</code></pre>
+<h3>Build</h3>
+<ul><li>Create separate host and phone tokens.</li><li>Store token hashes.</li><li>Put only the phone token in the QR fragment.</li><li>Expire unused sessions after three minutes.</li><li>Permit one host and one phone.</li><li>Reject expired, reused, or incorrect tokens.</li><li>Delete abandoned sessions.</li><li>Show connection state reactively.</li></ul>
+<h3>Learn</h3>
+<ul><li>Convex schema and indexes.</li><li>Queries, mutations, and subscriptions.</li><li>Scheduled cleanup.</li><li>Capability-based authentication.</li><li>Web Crypto SHA-256.</li><li>Runtime validation.</li></ul>
+<h3>Documentation</h3>
+<ul><li><a href="https://docs.convex.dev/" target="_blank" rel="noreferrer">Convex documentation<span aria-hidden="true">↗</span></a></li><li><a href="https://docs.convex.dev/realtime" target="_blank" rel="noreferrer">Convex realtime subscriptions<span aria-hidden="true">↗</span></a></li><li><a href="https://docs.convex.dev/functions/runtimes" target="_blank" rel="noreferrer">Convex function runtimes and Web Crypto<span aria-hidden="true">↗</span></a></li><li><a href="https://docs.convex.dev/scheduling/scheduled-functions" target="_blank" rel="noreferrer">Convex scheduled functions<span aria-hidden="true">↗</span></a></li></ul>
+<h3>Testing</h3>
+<ul><li>Unit-test token hashing and session transitions.</li><li>Test expired and reused tokens.</li><li>Test two phones attempting to join.</li><li>Test scheduled deletion.</li><li>Test QR fragments are not sent as ordinary URL query parameters.</li></ul>
+<p>Not resume-worthy by itself.</p></div>
+  </article>
+<article class="project-card reveal" id="project-4-peercam-web" data-search="project 4: peercam web">
+    <header class="project-head">
+      <div class="project-index">04</div>
+      <div><p class="phase">Web foundation</p><h2>PeerCam Web</h2></div>
+    </header>
+    <div class="project-content"><p><strong>Time:</strong> 25 to 45 additional hours <strong>Calendar:</strong> 3 to 6 weeks <strong>Cumulative:</strong> Approximately 70 to 115 hours</p>
+<h3>Product</h3>
+<p>Your first complete product:</p>
+<pre><code>Desktop browser creates QR
+→ Android scans
+→ grants camera access
+→ WebRTC negotiates automatically
+→ video appears on desktop</code></pre>
+<h3>Build</h3>
+<ul><li>Combine Projects 1 through 3.</li><li>Automate offer, answer, and ICE exchange through Convex.</li><li>Add direct and TURN-relayed connections.</li><li>Display resolution, FPS, bitrate, packet loss, codec, and route type.</li><li>Handle phone refresh and disconnect.</li><li>Maintain bounded logs.</li><li>Deploy sender and receiver.</li></ul>
+<h3>Learn</h3>
+<ul><li>WebRTC connectivity.</li><li>STUN and TURN.</li><li>Candidate types.</li><li><code>getStats()</code>.</li><li>Signaling ordering and sequence numbers.</li><li>Reconnection state machines.</li></ul>
+<h3>Documentation</h3>
+<ul><li><a href="https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Connectivity" target="_blank" rel="noreferrer">MDN WebRTC connectivity<span aria-hidden="true">↗</span></a></li><li><a href="https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/getStats" target="_blank" rel="noreferrer">MDN getStats<span aria-hidden="true">↗</span></a></li><li><a href="https://developers.cloudflare.com/realtime/turn/" target="_blank" rel="noreferrer">Cloudflare TURN<span aria-hidden="true">↗</span></a></li><li><a href="https://developers.cloudflare.com/realtime/turn/generate-credentials/" target="_blank" rel="noreferrer">Cloudflare TURN credentials<span aria-hidden="true">↗</span></a></li></ul>
+<h3>Testing</h3>
+<ul><li>Direct same-Wi-Fi connection.</li><li>Phone on mobile data and Mac on Wi-Fi.</li><li>Forced TURN relay.</li><li>Duplicate and out-of-order signals.</li><li>Refresh during negotiation.</li><li>One-hour streaming test.</li><li>Confirm memory and delay do not continuously increase.</li></ul>
+<h3>Resume value</h3>
+<p>This is the first project worth listing.</p>
+<p><strong>PeerCam Web | TypeScript, WebRTC, Convex, Cloudflare TURN</strong></p>
+<p>It shows more depth than Cloudline and should replace Cloudline on the resume.</p></div>
+  </article>
+      <div class="phase-divider"><span>Phase 02 · Native receiver and media</span></div>
+      <article class="project-card reveal" id="project-5-swift-session-modeler" data-search="project 5: swift session modeler">
+    <header class="project-head">
+      <div class="project-index">05</div>
+      <div><p class="phase">Native receiver</p><h2>Swift Session Modeler</h2></div>
+    </header>
+    <div class="project-content"><p><strong>Time:</strong> 15 to 25 hours <strong>Calendar:</strong> 2 to 3 weeks <strong>Stack:</strong> Swift command-line target, XCTest</p>
+<h3>Product</h3>
+<p>A command-line program that models PhoneCam sessions without any UI.</p>
+<h3>Build</h3>
+<ul><li>Decode signaling JSON with <code>Codable</code>.</li><li>Model session states with enums.</li><li>Validate state transitions.</li><li>Create custom error types.</li><li>Simulate asynchronous signaling events.</li><li>Test invalid ordering and cancellation.</li></ul>
+<h3>Learn</h3>
+<ul><li>Structs, classes, and enums.</li><li>Value versus reference semantics.</li><li>Optionals.</li><li><code>Codable</code>.</li><li>Protocols.</li><li>Error handling.</li><li>Closures.</li><li><code>async/await</code>.</li><li>Actors and cancellation.</li><li>ARC and weak references.</li></ul>
+<h3>Documentation</h3>
+<p>Use <a href="https://docs.swift.org/swift-book/documentation/the-swift-programming-language/" target="_blank" rel="noreferrer">The Swift Programming Language<span aria-hidden="true">↗</span></a> sections:</p>
+<ul><li>A Swift Tour</li><li>Structures and Classes</li><li>Enumerations</li><li>Optionals</li><li>Protocols</li><li>Closures</li><li>Error Handling</li><li>Concurrency</li><li>Automatic Reference Counting</li></ul>
+<h3>Completion test</h3>
+<ul><li>Every allowed transition has a test.</li><li>Every invalid transition returns a typed error.</li><li>No force unwraps.</li><li>You can explain when to use a struct, class, actor, and protocol.</li></ul>
+<p>Not resume-worthy.</p></div>
+  </article>
+<article class="project-card reveal" id="project-6-macos-pairing-dashboard" data-search="project 6: macos pairing dashboard">
+    <header class="project-head">
+      <div class="project-index">06</div>
+      <div><p class="phase">Native receiver</p><h2>macOS Pairing Dashboard</h2></div>
+    </header>
+    <div class="project-content"><p><strong>Time:</strong> 25 to 40 hours <strong>Calendar:</strong> 3 to 5 weeks <strong>Stack:</strong> Swift, SwiftUI, Convex, Core Image</p>
+<h3>Product</h3>
+<p>A native Mac session manager without video.</p>
+<pre><code>PhoneCam
+
+Waiting for phone
+[QR code]
+
+Session expires in 01:42</code></pre>
+<h3>Build</h3>
+<ul><li>Create sessions from Swift.</li><li>Subscribe to Convex changes.</li><li>Generate QR codes locally.</li><li>Display session state and expiration.</li><li>Separate SwiftUI views from networking services.</li><li>Handle cancellation when the window closes.</li><li>Restore a clean state after disconnection.</li></ul>
+<h3>Learn</h3>
+<ul><li>SwiftUI data flow.</li><li>Observation.</li><li><code>MainActor</code>.</li><li>Service layers.</li><li>Swift Package Manager.</li><li>Convex Swift decoding.</li><li>Core Image QR generation.</li></ul>
+<h3>Documentation</h3>
+<ul><li><a href="https://developer.apple.com/documentation/technologyoverviews/swiftui" target="_blank" rel="noreferrer">SwiftUI overview<span aria-hidden="true">↗</span></a></li><li><a href="https://docs.convex.dev/client/swift" target="_blank" rel="noreferrer">Convex Swift client<span aria-hidden="true">↗</span></a></li><li>Apple documentation for <code>CIQRCodeGenerator</code></li><li>Apple documentation for <code>NSImage</code> and SwiftUI <code>Image</code></li></ul>
+<h3>Testing</h3>
+<ul><li>Mock the session service.</li><li>Test UI state independently from Convex.</li><li>Test expiration and cancellation.</li><li>Test malformed backend responses.</li></ul>
+<p>Good GitHub evidence, but not a main resume project.</p></div>
+  </article>
+<article class="project-card reveal" id="project-7-native-webrtc-viewer" data-search="project 7: native webrtc viewer">
+    <header class="project-head">
+      <div class="project-index">07</div>
+      <div><p class="phase">Native receiver</p><h2>Native WebRTC Viewer</h2></div>
+    </header>
+    <div class="project-content"><p><strong>Time:</strong> 50 to 90 hours <strong>Calendar:</strong> 6 to 12 weeks <strong>Stack:</strong> Swift, Objective-C interoperability, WebRTC</p>
+<h3>Product</h3>
+<p>Replace the desktop browser receiver with a native Mac application.</p>
+<pre><code>Android Chrome
+→ WebRTC
+→ Swift macOS app
+→ live native preview</code></pre>
+<h3>Build</h3>
+<ul><li>Integrate the pinned WebRTC XCFramework.</li><li>Create a peer-connection factory.</li><li>Accept the phone’s offer.</li><li>Produce and publish the answer.</li><li>Exchange ICE candidates.</li><li>Receive <code>RTCVideoTrack</code>.</li><li>Render frames in the native window.</li><li>Isolate WebRTC behind a Swift protocol.</li><li>Handle disconnect and ICE restart.</li></ul>
+<h3>Learn</h3>
+<ul><li>Reading Objective-C headers.</li><li>Delegates.</li><li>Nullability.</li><li>Swift and Objective-C naming conversion.</li><li>Framework linking.</li><li>XCFramework architectures.</li><li>Callback queues.</li><li>Video-track lifecycle.</li></ul>
+<h3>Documentation</h3>
+<ul><li><a href="https://webrtc.googlesource.com/src/+/refs/heads/main/sdk/objc" target="_blank" rel="noreferrer">Google WebRTC Objective-C SDK source<span aria-hidden="true">↗</span></a></li><li>Read the actual <code>RTCPeerConnection</code>, <code>RTCPeerConnectionFactory</code>, <code>RTCVideoTrack</code>, and <code>RTCVideoFrame</code> headers.</li><li><a href="https://github.com/webrtc-sdk/Specs" target="_blank" rel="noreferrer">Pinned WebRTC XCFramework package<span aria-hidden="true">↗</span></a></li><li>Convex Swift documentation from Project 6.</li></ul>
+<p>The native WebRTC documentation is weak. Reading headers and small official tests is part of the work.</p>
+<h3>Testing</h3>
+<ul><li>Mock signaling independently.</li><li>Connect repeatedly without leaking peer connections.</li><li>Test malformed SDP.</li><li>Test ICE failure.</li><li>Test phone refresh.</li><li>Run Instruments for allocations and leaks.</li></ul>
+<h3>Resume value</h3>
+<p>Resume-worthy if PhoneCam is not complete yet. It is your first credible native networking project.</p></div>
+  </article>
+<article class="project-card reveal" id="project-8-pixel-buffer-workbench" data-search="project 8: pixel buffer workbench">
+    <header class="project-head">
+      <div class="project-index">08</div>
+      <div><p class="phase">Native receiver</p><h2>Pixel Buffer Workbench</h2></div>
+    </header>
+    <div class="project-content"><p><strong>Time:</strong> 25 to 45 hours <strong>Calendar:</strong> 3 to 6 weeks <strong>Stack:</strong> Swift, Core Video, Core Media</p>
+<h3>Product</h3>
+<p>A native frame-generation and conversion laboratory.</p>
+<h3>Build</h3>
+<ol><li>Generate a solid-color <code>CVPixelBuffer</code>.</li><li>Animate colors at 30 FPS.</li><li>Reuse buffers through <code>CVPixelBufferPool</code>.</li><li>Build a <code>CMVideoFormatDescription</code>.</li><li>Wrap frames inside <code>CMSampleBuffer</code>.</li><li>Generate monotonically increasing timestamps.</li><li>Convert received WebRTC frames.</li><li>Drop frames when processing falls behind.</li></ol>
+<h3>Learn</h3>
+<ul><li>RGB, BGRA, NV12, I420, and YUV.</li><li>Width, height, stride, and plane layout.</li><li><code>CVPixelBuffer</code>.</li><li><code>CVPixelBufferPool</code>.</li><li><code>CMTime</code>.</li><li><code>CMSampleTimingInfo</code>.</li><li><code>CMVideoFormatDescription</code>.</li><li><code>CMSampleBuffer</code>.</li><li>Buffer ownership.</li></ul>
+<h3>Documentation</h3>
+<ul><li><a href="https://developer.apple.com/documentation/CoreVideo/CVPixelBufferPool-77o" target="_blank" rel="noreferrer">CVPixelBufferPool<span aria-hidden="true">↗</span></a></li><li><a href="https://developer.apple.com/documentation/coremedia/cmsamplebuffer-api" target="_blank" rel="noreferrer">CMSampleBuffer<span aria-hidden="true">↗</span></a></li><li><a href="https://developer.apple.com/documentation/coremedia/cmvideoformatdescriptioncreateforimagebuffer%28allocator%3Aimagebuffer%3Aformatdescriptionout%3A%29" target="_blank" rel="noreferrer">CMVideoFormatDescriptionCreateForImageBuffer<span aria-hidden="true">↗</span></a></li></ul>
+<h3>Testing</h3>
+<ul><li>Verify pixel format and dimensions.</li><li>Verify timestamps never move backward.</li><li>Verify 30 FPS generation.</li><li>Run for one hour without memory growth.</li><li>Verify queue size remains bounded.</li></ul>
+<p>Not a separate resume project.</p></div>
+  </article>
+      <div class="phase-divider"><span>Phase 03 · Virtual camera and distribution</span></div>
+      <article class="project-card reveal" id="project-9-test-pattern-virtual-camera" data-search="project 9: test pattern virtual camera">
+    <header class="project-head">
+      <div class="project-index">09</div>
+      <div><p class="phase">Virtual camera</p><h2>Test Pattern Virtual Camera</h2></div>
+    </header>
+    <div class="project-content"><p><strong>Time:</strong> 35 to 60 hours <strong>Calendar:</strong> 4 to 8 weeks <strong>Stack:</strong> Swift, SystemExtensions, Core Media I/O</p>
+<h3>Product</h3>
+<p>A selectable macOS camera that displays generated animation.</p>
+<pre><code>Install extension
+→ approve in System Settings
+→ open FaceTime
+→ select TestPattern Camera
+→ animation appears</code></pre>
+<h3>Build</h3>
+<ul><li>Add the Camera Extension target.</li><li>Configure bundle identifiers and app groups.</li><li>Request extension activation.</li><li>Publish one 720p30 source stream.</li><li>Generate moving test frames.</li><li>Display activation errors clearly.</li></ul>
+<h3>Learn</h3>
+<ul><li>Xcode targets.</li><li>Entitlements.</li><li>App groups.</li><li>System Extension installation.</li><li>Provider, device, and stream architecture.</li><li>Code signing.</li></ul>
+<h3>Documentation</h3>
+<ul><li><a href="https://developer.apple.com/documentation/CoreMediaIO/creating-a-camera-extension-with-core-media-i-o" target="_blank" rel="noreferrer">Creating a Camera Extension with Core Media I/O<span aria-hidden="true">↗</span></a></li><li><a href="https://developer.apple.com/videos/play/wwdc2022/10022/" target="_blank" rel="noreferrer">WWDC22: Create Camera Extensions with Core Media I/O<span aria-hidden="true">↗</span></a></li></ul>
+<p>Watch the WWDC session once without coding, then again while taking notes.</p>
+<h3>Testing</h3>
+<ul><li>FaceTime.</li><li>Photo Booth.</li><li>QuickTime.</li><li>Chrome camera selection.</li><li>Extension activation, deactivation, and replacement.</li><li>App missing from <code>/Applications</code>.</li><li>Approval denied.</li></ul>
+<p>Strong interview material, but wait for FrameBridge before listing it.</p></div>
+  </article>
+<article class="project-card reveal" id="project-10-framebridge" data-search="project 10: framebridge">
+    <header class="project-head">
+      <div class="project-index">10</div>
+      <div><p class="phase">Virtual camera</p><h2>FrameBridge</h2></div>
+    </header>
+    <div class="project-content"><p><strong>Time:</strong> 40 to 75 hours <strong>Calendar:</strong> 5 to 10 weeks <strong>Stack:</strong> Swift, Core Media I/O C APIs</p>
+<h3>Product</h3>
+<p>The host Mac application supplies frames to the Camera Extension.</p>
+<pre><code>Host generates colors
+→ CMIO sink stream
+→ extension consumes frames
+→ source stream republishes them
+→ FaceTime displays host-generated video</code></pre>
+<h3>Build</h3>
+<ul><li>Add a sink stream.</li><li>Discover the CMIO device from the host.</li><li>Find the sink stream.</li><li>Copy its sample-buffer queue.</li><li>Start and stop the stream.</li><li>Enqueue sample buffers.</li><li>Consume them inside the extension.</li><li>Retain only the latest complete frame.</li><li>Publish an offline frame after the host stops.</li></ul>
+<h3>Learn</h3>
+<ul><li><code>CMIOObjectGetPropertyData</code></li><li><code>CMIOStreamCopyBufferQueue</code></li><li><code>CMIODeviceStartStream</code></li><li><code>CMIODeviceStopStream</code></li><li><code>CMSimpleQueue</code></li><li><code>OSStatus</code></li><li>Swift unsafe pointers</li><li>Core Foundation ownership</li></ul>
+<h3>Documentation</h3>
+<ul><li>Rewatch the sink-stream section of the <a href="https://developer.apple.com/videos/play/wwdc2022/10022/" target="_blank" rel="noreferrer">WWDC22 session<span aria-hidden="true">↗</span></a>.</li><li>Read the relevant Core Media I/O function references.</li><li>Read Apple’s generated Camera Extension template line by line.</li></ul>
+<h3>Testing</h3>
+<ul><li>Start and stop repeatedly.</li><li>Stop the host unexpectedly.</li><li>Fill the queue deliberately.</li><li>Verify old frames are dropped.</li><li>Verify sample buffers are not released too early.</li><li>Run with Address Sanitizer where possible.</li></ul>
+<p>FrameBridge is resume-worthy if independently demonstrated.</p></div>
+  </article>
+<article class="project-card reveal" id="project-11-phonecam-integration" data-search="project 11: phonecam integration">
+    <header class="project-head">
+      <div class="project-index">11</div>
+      <div><p class="phase">Virtual camera</p><h2>PhoneCam Integration</h2></div>
+    </header>
+    <div class="project-content"><p><strong>Time:</strong> 50 to 90 hours <strong>Calendar:</strong> 6 to 12 weeks</p>
+<h3>Product</h3>
+<p>Combine the previously proven systems:</p>
+<pre><code>Android Chrome
+→ PeerCam WebRTC sender
+→ Native WebRTC Viewer
+→ Pixel Buffer Workbench conversion
+→ FrameBridge
+→ PhoneCam virtual camera
+→ Zoom</code></pre>
+<h3>Build</h3>
+<ul><li>Feed received WebRTC frames into the buffer converter.</li><li>Feed resulting sample buffers into FrameBridge.</li><li>Reset timestamps after reconnect.</li><li>Drop stale frames.</li><li>Publish an offline placeholder.</li><li>Display route, FPS, bitrate, packet loss, and dropped frames.</li><li>Support front and rear camera switching.</li><li>Support direct and TURN routes.</li></ul>
+<h3>Testing</h3>
+<ul><li>Zoom, Meet, Discord, FaceTime, Chrome, and QuickTime.</li><li>Same network.</li><li>Separate networks.</li><li>Forced TURN.</li><li>Phone refresh.</li><li>Phone lock.</li><li>Mac sleep.</li><li>Mac network change.</li><li>One-hour stream.</li><li>Repeated session creation and destruction.</li></ul>
+<p>This becomes your flagship resume project.</p></div>
+  </article>
+<article class="project-card reveal" id="project-12-reliability-and-distribution" data-search="project 12: reliability and distribution">
+    <header class="project-head">
+      <div class="project-index">12</div>
+      <div><p class="phase">Virtual camera</p><h2>Reliability and Distribution</h2></div>
+    </header>
+    <div class="project-content"><p><strong>Time:</strong> 60 to 110 hours <strong>Calendar:</strong> 8 to 15 weeks</p>
+<h3>Build</h3>
+<ul><li>ICE restart.</li><li>TURN credential refresh.</li><li>Structured logs.</li><li>User-facing failure explanations.</li><li>Extension version replacement.</li><li>Developer ID signing.</li><li>Notarization.</li><li>Privacy documentation.</li><li>Clean uninstall behavior.</li><li>Release archive.</li><li>Installation guide.</li><li>Demo video and architecture diagram.</li></ul>
+<h3>Completion standard</h3>
+<p>The project is not complete because it worked once on your machine. It is complete when another person can install it, pair their phone, recover from common failures, and remove it without your help.</p></div>
+  </article>
+      <div class="phase-divider"><span>Completion, operating rules and resume outcome</span></div>
+      <section class="support-card reveal" id="total-estimate"><h2>Total estimate</h2><div class="table-wrap"><table><thead><tr><th>Milestone</th><th>Focused hours</th><th>Likely elapsed time</th></tr></thead><tbody><tr><td>PeerCam Web complete</td><td>70 to 115</td><td>2 to 4 months</td></tr><tr><td>Native WebRTC preview</td><td>185 to 310 cumulative</td><td>5 to 9 months</td></tr><tr><td>First PhoneCam virtual-camera MVP</td><td>335 to 535 cumulative</td><td>9 to 15 months</td></tr><tr><td>Reliable distributable product</td><td>395 to 645 cumulative</td><td>12 to 20 months</td></tr></tbody></table></div>
+<p>If you repeatedly stop for several weeks, expect 18 to 24 months.</p></section>
+<section class="support-card reveal" id="how-to-work-without-depending-on-ai"><h2>How to work without depending on AI</h2><p>For every project:</p>
+<ol><li>Read the listed documentation.</li><li>Write a one-page explanation in your own words.</li><li>Build the smallest successful experiment.</li><li>Add tests.</li><li>Intentionally trigger failures.</li><li>Use the debugger and logs.</li><li>Commit only after you can explain the implementation.</li><li>Record the result in <code>docs/learning-log.md</code>.</li></ol>
+<p>Use AI only when:</p>
+<ul><li>Official documentation is ambiguous.</li><li>You have investigated the same error for at least 60 minutes.</li><li>You want your explanation reviewed.</li><li>You want test cases suggested after writing the implementation.</li></ul>
+<p>Do not ask AI to:</p>
+<ul><li>Generate the entire feature.</li><li>Design every type before you understand the API.</li><li>Rewrite working code you cannot explain.</li><li>Solve compiler errors before you read the error and relevant documentation.</li></ul></section>
+<section class="support-card reveal" id="resume-outcome"><h2>Resume outcome</h2><p>Do not list all twelve projects.</p>
+<p>During development:</p>
+<ul><li>List PeerCam Web after Project 4.</li><li>Replace it with Native WebRTC Viewer after Project 7 if the native version is stable.</li><li>Replace all intermediate entries with PhoneCam after Project 11.</li><li>Keep kontxt-cli and Luma.</li><li>Remove Cloudline before removing kontxt-cli, Luma, or PhoneCam.</li></ul>
+<p>Final project set:</p>
+<ol><li>PhoneCam</li><li>kontxt-cli</li><li>Luma or another completed full-stack product</li></ol>
+<p>That portfolio tells a coherent story: native systems and media, developer tooling, and full-stack product engineering.</p></section>
+    </main>
+  </div>
+  <footer>PhoneCam prerequisite project curriculum · Built as a standalone reference page</footer>
+</body>
+</html>
