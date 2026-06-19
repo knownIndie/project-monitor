@@ -8,5 +8,16 @@
     "publishedAt": "2026-06-19T05:03:12.831Z",
     "updatedAt": "2026-06-19T05:03:12.831Z",
     "path": "/projects/phonecam-project-curriculum/"
+  },
+  {
+    "slug": "kontxt-cli-15-day-social-campaign",
+    "title": "kontxt-cli · 15-Day Social Campaign",
+    "description": "A practical 15-day LinkedIn and X campaign for kontxt-cli, with real use cases and platform-ready copy.",
+    "status": "active",
+    "pinned": false,
+    "publishedAt": "2026-06-19T05:06:41.144Z",
+    "updatedAt": "2026-06-19T05:06:41.144Z",
+    "path": "/projects/kontxt-cli-15-day-social-campaign/",
+    "sourceRepository": "https://github.com/knownIndie/kontxt-cli"
   }
 ]
