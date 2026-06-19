@@ -1,611 +1,768 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A DevOps learning path split between the real DevScreen product and a disposable TypeScript operations lab.">
-  <title>DevScreen + OpsLab DevOps Path</title>
-  <style>
-    :root {
-      color-scheme: dark;
-      --bg: #0a0a0a;
-      --panel: #121212;
-      --panel-2: #181818;
-      --line: #2b2b2b;
-      --text: #f4f4f0;
-      --muted: #a4a49d;
-      --green: #b9f227;
-      --blue: #74b9ff;
-      --orange: #ffb86b;
-      --red: #ff7979;
-      --max: 1120px;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A tracked DevOps learning path split between the real DevScreen product and a disposable TypeScript operations lab."
+    />
+    <title>DevScreen + OpsLab DevOps Path</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --page: #f4f6f5;
+        --surface: #ffffff;
+        --ink: #17201c;
+        --muted: #64706a;
+        --line: #d9dfdc;
+        --green: #147a50;
+        --green-soft: #e8f5ee;
+        --blue: #25669b;
+        --blue-soft: #edf5fb;
+        --amber: #a55c08;
+        --amber-soft: #fff4df;
+        --red: #a73b32;
+        --red-soft: #fff0ed;
+        --code: #202824;
+        --shadow: 0 10px 28px rgb(23 32 28 / 7%);
+      }
 
-    * { box-sizing: border-box; }
+      * { box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
+      html { scroll-behavior: smooth; }
 
-    body {
-      margin: 0;
-      background:
-        radial-gradient(circle at 85% 5%, rgba(185, 242, 39, 0.10), transparent 24rem),
-        var(--bg);
-      color: var(--text);
-      font: 16px/1.55 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
+      body {
+        margin: 0;
+        min-width: 320px;
+        background: var(--page);
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.5;
+      }
 
-    a { color: inherit; }
+      button, input { font: inherit; }
+      button, label, summary { -webkit-tap-highlight-color: transparent; }
 
-    code, pre {
-      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-    }
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-bottom: 1px solid var(--line);
+        background: rgb(255 255 255 / 94%);
+        backdrop-filter: blur(12px);
+      }
 
-    .shell {
-      width: min(calc(100% - 32px), var(--max));
-      margin: 0 auto;
-    }
+      .topbar-inner, main {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+      }
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      min-height: 70px;
-      border-bottom: 1px solid var(--line);
-    }
+      .topbar-inner {
+        display: flex;
+        min-height: 60px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
 
-    .brand {
-      font-weight: 800;
-      letter-spacing: -0.03em;
-    }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 750;
+      }
 
-    .brand span { color: var(--green); }
+      .brand-mark {
+        display: grid;
+        width: 30px;
+        height: 30px;
+        place-items: center;
+        border-radius: 6px;
+        background: var(--ink);
+        color: white;
+        font-size: 12px;
+      }
 
-    nav {
-      display: flex;
-      gap: 18px;
-      color: var(--muted);
-      font-size: 14px;
-    }
+      .reset-button {
+        min-height: 36px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--surface);
+        color: var(--ink);
+        padding: 7px 12px;
+        cursor: pointer;
+      }
 
-    nav a { text-decoration: none; }
-    nav a:hover { color: var(--text); }
+      .reset-button:hover {
+        border-color: #aeb8b3;
+        background: #f9faf9;
+      }
 
-    .hero {
-      padding: 86px 0 54px;
-      display: grid;
-      grid-template-columns: 1.45fr 0.55fr;
-      gap: 56px;
-      align-items: end;
-    }
+      main { padding: 44px 0 72px; }
 
-    .eyebrow {
-      margin: 0 0 14px;
-      color: var(--green);
-      font: 700 12px/1.2 "SFMono-Regular", monospace;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
+      .intro {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 280px;
+        gap: 40px;
+        align-items: end;
+        padding-bottom: 34px;
+      }
 
-    h1 {
-      max-width: 850px;
-      margin: 0;
-      font-size: clamp(42px, 7vw, 82px);
-      line-height: 0.96;
-      letter-spacing: -0.065em;
-    }
+      .eyebrow {
+        margin: 0 0 8px;
+        color: var(--green);
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
 
-    .hero p {
-      max-width: 720px;
-      margin: 24px 0 0;
-      color: var(--muted);
-      font-size: 18px;
-    }
+      h1 {
+        max-width: 760px;
+        margin: 0;
+        font-size: clamp(34px, 5vw, 58px);
+        line-height: 1.04;
+        letter-spacing: 0;
+      }
 
-    .target {
-      border-left: 3px solid var(--green);
-      padding-left: 20px;
-    }
+      .lede {
+        max-width: 730px;
+        margin: 18px 0 0;
+        color: var(--muted);
+        font-size: 17px;
+      }
 
-    .target strong {
-      display: block;
-      font-size: 34px;
-      letter-spacing: -0.04em;
-    }
+      .progress-panel {
+        border-left: 3px solid var(--green);
+        padding-left: 20px;
+      }
 
-    .target span { color: var(--muted); }
+      .progress-value {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+      }
 
-    section {
-      padding: 62px 0;
-      border-top: 1px solid var(--line);
-    }
+      .progress-value strong { font-size: 32px; }
+      .progress-value span, .status-line { color: var(--muted); font-size: 13px; }
 
-    .section-head {
-      display: grid;
-      grid-template-columns: 230px 1fr;
-      gap: 28px;
-      margin-bottom: 30px;
-    }
+      .progress-track {
+        height: 9px;
+        margin-top: 10px;
+        overflow: hidden;
+        border-radius: 4px;
+        background: #dfe5e2;
+      }
 
-    h2 {
-      margin: 0;
-      font-size: 14px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
+      .progress-fill {
+        width: 0;
+        height: 100%;
+        background: var(--green);
+        transition: width 220ms ease;
+      }
 
-    .section-head p {
-      max-width: 760px;
-      margin: 0;
-      font-size: clamp(24px, 3vw, 38px);
-      line-height: 1.12;
-      letter-spacing: -0.04em;
-    }
+      .status-line { margin: 10px 0 0; }
 
-    .grid-2, .grid-3 {
-      display: grid;
-      gap: 16px;
-    }
+      .track-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-bottom: 14px;
+      }
 
-    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .track {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface);
+        padding: 18px 20px;
+        box-shadow: var(--shadow);
+      }
 
-    .card {
-      background: linear-gradient(145deg, var(--panel), #0e0e0e);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 24px;
-    }
+      .track.devscreen { border-top: 3px solid var(--green); }
+      .track.opslab { border-top: 3px solid var(--blue); }
 
-    .card h3 {
-      margin: 0 0 8px;
-      font-size: 18px;
-      letter-spacing: -0.02em;
-    }
+      .track-label {
+        display: inline-block;
+        margin-bottom: 7px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
 
-    .card p {
-      margin: 0;
-      color: var(--muted);
-    }
+      .track h2 { margin: 0; font-size: 19px; }
+      .track p { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
 
-    .card ul {
-      margin: 18px 0 0;
-      padding-left: 18px;
-      color: var(--muted);
-    }
+      .constraint {
+        margin: 0 0 24px;
+        border: 1px solid #e8c889;
+        border-radius: 8px;
+        background: var(--amber-soft);
+        padding: 14px 16px;
+        color: #6c5738;
+        font-size: 14px;
+      }
 
-    .card li + li { margin-top: 8px; }
+      .constraint strong { color: #704508; }
 
-    .keep { border-top: 3px solid var(--green); }
-    .learn { border-top: 3px solid var(--blue); }
-    .delay { border-top: 3px solid var(--orange); }
+      .phase-nav {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        margin-bottom: 24px;
+        padding: 4px 0 10px;
+        scrollbar-width: thin;
+      }
 
-    .stack-flow {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 8px;
-      align-items: center;
-    }
+      .phase-nav a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--surface);
+        color: var(--muted);
+        padding: 6px 10px;
+        font-size: 13px;
+        text-decoration: none;
+      }
 
-    .flow-item {
-      min-height: 110px;
-      display: grid;
-      place-content: center;
-      text-align: center;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 14px;
-      font-weight: 750;
-    }
+      .phase-nav a.is-done {
+        border-color: #a8d3bc;
+        background: var(--green-soft);
+        color: var(--green);
+        font-weight: 700;
+      }
 
-    .flow-item small {
-      display: block;
-      margin-top: 6px;
-      color: var(--muted);
-      font-weight: 500;
-    }
+      .phase-list { display: grid; gap: 14px; }
 
-    .arrow {
-      display: none;
-      color: var(--green);
-    }
+      .phase {
+        scroll-margin-top: 80px;
+        display: grid;
+        grid-template-columns: 60px minmax(0, 1fr);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
 
-    .warning {
-      margin-top: 16px;
-      padding: 16px 18px;
-      border: 1px solid rgba(255, 121, 121, 0.35);
-      border-radius: 12px;
-      background: rgba(255, 121, 121, 0.07);
-      color: #ffc2c2;
-    }
+      .phase.is-done { border-color: #9ecab4; }
 
-    .roadmap {
-      display: grid;
-      gap: 12px;
-    }
+      .phase-index {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        border-right: 1px solid var(--line);
+        background: #fafbfa;
+        padding-top: 22px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 800;
+      }
 
-    .phase {
-      display: grid;
-      grid-template-columns: 95px 1.1fr 1fr 1fr;
-      gap: 18px;
-      align-items: start;
-      padding: 20px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-    }
+      .phase.is-done .phase-index { background: var(--green-soft); color: var(--green); }
 
-    .week {
-      color: var(--green);
-      font: 700 13px/1.4 "SFMono-Regular", monospace;
-      text-transform: uppercase;
-    }
+      .phase-body { min-width: 0; padding: 20px 22px; }
 
-    .phase h3 { margin: 0 0 6px; }
-    .phase p { margin: 0; color: var(--muted); font-size: 14px; }
-    .label { color: var(--text); font-weight: 750; }
+      .phase-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 20px;
+      }
 
-    .today {
-      background: var(--green);
-      color: #121608;
-      border-radius: 18px;
-      padding: clamp(24px, 5vw, 52px);
-    }
+      .phase-kicker {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--green);
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
 
-    .today .eyebrow { color: #313d10; }
-    .today h2 {
-      color: #121608;
-      font-size: clamp(30px, 4vw, 52px);
-      line-height: 1;
-      letter-spacing: -0.05em;
-      text-transform: none;
-    }
+      .phase[data-track="OpsLab"] .phase-kicker { color: var(--blue); }
 
-    .checklist {
-      display: grid;
-      gap: 10px;
-      margin-top: 26px;
-    }
+      .phase-title { margin: 0; font-size: 20px; line-height: 1.25; }
+      .phase-goal { margin: 6px 0 0; color: var(--muted); }
 
-    .check {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 14px 16px;
-      border: 1px solid rgba(18, 22, 8, 0.22);
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.24);
-      cursor: pointer;
-    }
+      .phase-complete {
+        display: flex;
+        flex: 0 0 auto;
+        min-height: 34px;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 5px 9px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+      }
 
-    .check input {
-      width: 18px;
-      height: 18px;
-      margin-top: 2px;
-      accent-color: #111;
-    }
+      .phase-complete:has(input:checked) {
+        border-color: #9ecab4;
+        background: var(--green-soft);
+        color: var(--green);
+      }
 
-    .check span { flex: 1; }
-    .check:has(input:checked) span { text-decoration: line-through; opacity: 0.62; }
+      input[type="checkbox"] {
+        width: 17px;
+        height: 17px;
+        margin: 0;
+        accent-color: var(--green);
+        cursor: pointer;
+      }
 
-    pre {
-      overflow-x: auto;
-      margin: 18px 0 0;
-      padding: 18px;
-      border-radius: 12px;
-      background: #0a0c06;
-      color: #dffc8e;
-      font-size: 13px;
-      line-height: 1.6;
-    }
+      input[type="checkbox"]:disabled { cursor: not-allowed; }
 
-    .example {
-      margin-top: 18px;
-      padding: 18px;
-      background: var(--panel-2);
-      border-left: 3px solid var(--blue);
-    }
+      .criteria {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px 20px;
+        margin: 20px 0 0;
+        padding: 18px 0 0;
+        border-top: 1px solid var(--line);
+      }
 
-    .example h4 { margin: 0 0 8px; }
-    .example p { margin: 0; color: var(--muted); }
+      .criterion {
+        display: flex;
+        min-width: 0;
+        align-items: flex-start;
+        gap: 10px;
+        color: #354039;
+        font-size: 14px;
+        cursor: pointer;
+      }
 
-    .rules {
-      counter-reset: rule;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
+      .criterion input { flex: 0 0 auto; margin-top: 2px; }
+      .criterion:has(input:checked) span { color: var(--muted); text-decoration: line-through; }
 
-    .rule {
-      counter-increment: rule;
-      padding: 20px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      color: var(--muted);
-    }
+      details {
+        margin-top: 18px;
+        border-top: 1px dashed var(--line);
+        padding-top: 14px;
+      }
 
-    .rule::before {
-      content: "0" counter(rule);
-      display: block;
-      margin-bottom: 10px;
-      color: var(--green);
-      font: 700 12px/1 "SFMono-Regular", monospace;
-    }
+      summary {
+        width: fit-content;
+        color: var(--amber);
+        font-size: 13px;
+        font-weight: 800;
+        cursor: pointer;
+      }
 
-    .rule strong { color: var(--text); }
+      .example {
+        margin: 12px 0 0;
+        border-left: 3px solid #e2a34e;
+        background: var(--amber-soft);
+        padding: 12px 14px;
+        color: #5c421f;
+        font-size: 14px;
+      }
 
-    .resources {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-    }
+      code {
+        border-radius: 4px;
+        background: rgb(32 40 36 / 9%);
+        padding: 1px 5px;
+        color: var(--code);
+        font-family: "SFMono-Regular", Consolas, monospace;
+        font-size: 0.92em;
+      }
 
-    .resources a {
-      display: block;
-      padding: 16px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      color: var(--muted);
-      text-decoration: none;
-    }
+      .rule {
+        margin-top: 28px;
+        border: 1px solid #e7b0aa;
+        border-radius: 8px;
+        background: var(--red-soft);
+        padding: 18px 20px;
+      }
 
-    .resources a:hover {
-      border-color: var(--green);
-      color: var(--text);
-    }
+      .rule strong { display: block; margin-bottom: 4px; color: var(--red); }
+      .rule p { margin: 0; color: #74443f; font-size: 14px; }
 
-    footer {
-      padding: 32px 0 56px;
-      color: var(--muted);
-      font-size: 13px;
-      border-top: 1px solid var(--line);
-    }
+      .references {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 18px;
+      }
 
-    @media (max-width: 850px) {
-      nav { display: none; }
-      .hero, .section-head { grid-template-columns: 1fr; }
-      .hero { gap: 32px; padding-top: 60px; }
-      .grid-3, .resources { grid-template-columns: 1fr; }
-      .phase { grid-template-columns: 70px 1fr; }
-      .phase > div:nth-child(n+3) { grid-column: 2; }
-      .stack-flow { grid-template-columns: 1fr; }
-      .arrow { display: block; text-align: center; }
-    }
+      .references a {
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--surface);
+        color: var(--muted);
+        padding: 6px 10px;
+        font-size: 13px;
+        text-decoration: none;
+      }
 
-    @media (max-width: 590px) {
-      .shell { width: min(calc(100% - 22px), var(--max)); }
-      .grid-2, .rules { grid-template-columns: 1fr; }
-      .phase { grid-template-columns: 1fr; }
-      .phase > div:nth-child(n) { grid-column: 1; }
-      section { padding: 44px 0; }
-    }
-  </style>
-</head>
-<body>
-  <header class="shell">
-    <div class="brand">DEV<span>OPS</span> PATH</div>
-    <nav aria-label="Page navigation">
-      <a href="#split">Project split</a>
-      <a href="#devscreen">DevScreen</a>
-      <a href="#roadmap">12 weeks</a>
-      <a href="#today">Start now</a>
-    </nav>
-  </header>
+      .references a:hover { border-color: #aeb8b3; color: var(--ink); }
 
-  <main>
-    <div class="shell hero">
-      <div>
-        <p class="eyebrow">Based on the actual DevScreen repo</p>
-        <h1>One real product. One disposable operations lab.</h1>
-        <p>Keep Docker out of DevScreen. Use DevScreen for product-safe operational work and a tiny TypeScript service for containers, Cloud Run, Kubernetes, Argo CD, and Kargo.</p>
+      @media (max-width: 760px) {
+        .intro { grid-template-columns: 1fr; gap: 24px; }
+        .progress-panel { max-width: 360px; }
+        .track-grid { grid-template-columns: 1fr; }
+        .phase { grid-template-columns: 44px minmax(0, 1fr); }
+        .phase-body { padding: 18px 16px; }
+        .phase-header { flex-direction: column; gap: 14px; }
+        .criteria { grid-template-columns: 1fr; }
+      }
+
+      @media (max-width: 440px) {
+        .topbar-inner, main { width: min(100% - 20px, 1120px); }
+        .brand span:last-child { display: none; }
+        main { padding-top: 30px; }
+        .phase { grid-template-columns: 1fr; }
+        .phase-index {
+          justify-content: flex-start;
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+          padding: 8px 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <span class="brand-mark">DO</span>
+          <span>DevOps Learning Tracker</span>
+        </div>
+        <button class="reset-button" id="reset-progress" type="button">Reset progress</button>
       </div>
-      <div class="target">
-        <strong>12 weeks</strong>
-        <span>8 to 10 focused hours weekly. Two repos with strict boundaries.</span>
-      </div>
-    </div>
+    </header>
 
-    <section id="split">
-      <div class="shell">
-        <div class="section-head">
-          <h2>Project split</h2>
-          <p>Do not turn DevScreen into infrastructure practice at the cost of finishing its product.</p>
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">DevScreen + OpsLab execution plan</p>
+          <h1 id="page-title">Operate two projects, phase by phase.</h1>
+          <p class="lede">
+            DevScreen proves product operations. OpsLab proves container and platform operations. Complete every acceptance check before marking a phase done.
+          </p>
         </div>
-        <div class="grid-3">
-          <article class="card keep">
-            <h3>DevScreen</h3>
-            <p>The real product.</p>
-            <ul>
-              <li>CI and build safety</li>
-              <li>Environment validation</li>
-              <li>Health and migrations</li>
-              <li>Logs, metrics, and traces</li>
-              <li>Rollback and incident practice</li>
-            </ul>
-          </article>
-          <article class="card learn">
-            <h3>OpsLab</h3>
-            <p>The disposable learning service.</p>
-            <ul>
-              <li>TypeScript incident API</li>
-              <li>PostgreSQL and failure routes</li>
-              <li>Docker and Compose</li>
-              <li>Terraform and Cloud Run</li>
-              <li>Kubernetes, Argo CD, Kargo</li>
-            </ul>
-          </article>
-          <article class="card delay">
-            <h3>Not now</h3>
-            <p>Platform theatre.</p>
-            <ul>
-              <li>Docker in DevScreen</li>
-              <li>DevScreen on Kubernetes</li>
-              <li>Microservices and Kafka</li>
-              <li>Service mesh or GKE</li>
-              <li>Flux before Argo CD works</li>
-            </ul>
-          </article>
-        </div>
-        <div class="warning"><strong>Hard constraint:</strong> DevScreen gets no Dockerfile, Compose stack, Cloud Run deployment, or Kubernetes manifests for this plan.</div>
-      </div>
-    </section>
-
-    <section id="devscreen">
-      <div class="shell">
-        <div class="section-head">
-          <h2>Current state</h2>
-          <p>DevScreen is still scaffolding. Finish the test and evaluation flow while adding only operations work that protects it.</p>
-        </div>
-        <div class="grid-2">
-          <article class="card keep">
-            <h3>Verified now</h3>
-            <ul>
-              <li>Next.js 16, React 19, TypeScript, Biome, shadcn</li>
-              <li>Better Auth with Google sign-in</li>
-              <li>Neon PostgreSQL with Drizzle</li>
-              <li>Basic profile table and auth homepage</li>
-              <li>Placeholder onboarding page</li>
-            </ul>
-          </article>
-          <article class="card delay">
-            <h3>Still missing</h3>
-            <ul>
-              <li>Real onboarding</li>
-              <li>Questions, sessions, answers, reports</li>
-              <li>Automated tests and CI</li>
-              <li>Health checks and operational logs</li>
-              <li>Metrics, traces, dashboards, runbooks</li>
-              <li>Clean lint and production build</li>
-            </ul>
-          </article>
-        </div>
-        <div class="example">
-          <h4>Concrete DevScreen trace</h4>
-          <p>Trace <code>submit attempt -> load answers -> AI evaluation -> validate JSON -> save report</code>. Record evaluation duration and failure reason without logging resume text, answers, prompts, tokens, or secrets.</p>
-        </div>
-        <div class="warning"><strong>Verified blockers:</strong> Biome currently fails on dropdown formatting and warns about an unused <code>varchar</code> import. The production build compiles, then fails because <code>callbackURL</code> is not a valid top-level sign-out option.</div>
-      </div>
-    </section>
-
-    <section>
-      <div class="shell">
-        <div class="section-head">
-          <h2>OpsLab scope</h2>
-          <p>Small enough to build in a weekend, useful enough to expose real operational failures.</p>
-        </div>
-        <div class="grid-2">
-          <article class="card">
-            <h3>Build</h3>
-            <ul>
-              <li>Fastify or Express with TypeScript</li>
-              <li>PostgreSQL incidents table</li>
-              <li>Create, list, and resolve incident routes</li>
-              <li><code>/health/live</code> and <code>/health/ready</code></li>
-              <li>Unit and API integration tests</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>Break safely</h3>
-            <ul>
-              <li><code>/debug/slow?ms=1000</code></li>
-              <li><code>/debug/error</code></li>
-              <li>Wrong database hostname</li>
-              <li>Connection pool exhaustion</li>
-              <li>Bad image and readiness failure</li>
-            </ul>
-          </article>
-        </div>
-        <div class="warning"><strong>Scope rule:</strong> no auth, AI, payments, uploads, chat, or design system. OpsLab is a machine for learning operations, not another startup.</div>
-      </div>
-    </section>
-
-    <section id="roadmap">
-      <div class="shell">
-        <div class="section-head">
-          <h2>12-week route</h2>
-          <p>Each row names the repo, the artifact, and the failure you must diagnose.</p>
-        </div>
-        <div class="roadmap">
-          <article class="phase"><div class="week">Week 1</div><div><h3>DevScreen: baseline and CI</h3><p>Biome, type-check, tests, production build, PR workflow.</p></div><div><p><span class="label">Ship:</span> required CI checks.</p></div><div><p><span class="label">Break:</span> a type error blocks merge.</p></div></article>
-          <article class="phase"><div class="week">Week 2</div><div><h3>DevScreen: health and logs</h3><p>Typed env validation, liveness, database readiness, request IDs.</p></div><div><p><span class="label">Ship:</span> clear health routes.</p></div><div><p><span class="label">Break:</span> missing database URL fails clearly.</p></div></article>
-          <article class="phase"><div class="week">Week 3</div><div><h3>OpsLab: tiny API</h3><p>Incident CRUD, PostgreSQL, tests, health and debug routes.</p></div><div><p><span class="label">Ship:</span> one-command local setup.</p></div><div><p><span class="label">Break:</span> port and database failures.</p></div></article>
-          <article class="phase"><div class="week">Week 4</div><div><h3>OpsLab: Docker</h3><p>Multi-stage non-root image, Compose, health checks, shutdown.</p></div><div><p><span class="label">Ship:</span> API plus database.</p></div><div><p><span class="label">Break:</span> wrong host, port, and command.</p></div></article>
-          <article class="phase"><div class="week">Week 5</div><div><h3>OpsLab: container CI</h3><p>Test, build, scan, publish immutable commit-SHA images.</p></div><div><p><span class="label">Ship:</span> traceable registry image.</p></div><div><p><span class="label">Break:</span> failing test blocks publish.</p></div></article>
-          <article class="phase"><div class="week">Week 6</div><div><h3>OpsLab: Terraform</h3><p>GCP APIs, registry, IAM, secrets, budget, Cloud Run.</p></div><div><p><span class="label">Ship:</span> disposable environment.</p></div><div><p><span class="label">Break:</span> detect drift and bad IAM.</p></div></article>
-          <article class="phase"><div class="week">Week 7</div><div><h3>OpsLab: Cloud Run</h3><p>Keyless CI deploy, revisions, scaling, identity, rollback.</p></div><div><p><span class="label">Ship:</span> production-style revision.</p></div><div><p><span class="label">Break:</span> bad revision, then roll back.</p></div></article>
-          <article class="phase"><div class="week">Week 8</div><div><h3>OpsLab: observability</h3><p>OpenTelemetry, JSON logs, RED metrics, dashboard, alert.</p></div><div><p><span class="label">Ship:</span> correlated signals.</p></div><div><p><span class="label">Break:</span> slow route and pool exhaustion.</p></div></article>
-          <article class="phase"><div class="week">Week 9</div><div><h3>DevScreen: evaluation telemetry</h3><p>Trace AI evaluation, validation, save, and user-visible result.</p></div><div><p><span class="label">Ship:</span> latency and failure dashboard.</p></div><div><p><span class="label">Break:</span> invalid AI JSON.</p></div></article>
-          <article class="phase"><div class="week">Week 10</div><div><h3>OpsLab: local Kubernetes</h3><p>kind or k3d, probes, resources, secrets, Kustomize.</p></div><div><p><span class="label">Ship:</span> local cluster deployment.</p></div><div><p><span class="label">Break:</span> probe and resource failures.</p></div></article>
-          <article class="phase"><div class="week">Week 11</div><div><h3>OpsLab: Argo CD</h3><p>Separate GitOps repo, reconciliation, health, drift, rollback.</p></div><div><p><span class="label">Ship:</span> Git changes desired image.</p></div><div><p><span class="label">Break:</span> manual cluster drift.</p></div></article>
-          <article class="phase"><div class="week">Week 12</div><div><h3>OpsLab: Kargo</h3><p>Warehouse, Freight, dev, staging, production, verification.</p></div><div><p><span class="label">Ship:</span> controlled promotion.</p></div><div><p><span class="label">Break:</span> failed verification blocks prod.</p></div></article>
-        </div>
-      </div>
-    </section>
-
-    <section id="today">
-      <div class="shell">
-        <div class="today">
-          <p class="eyebrow">First session</p>
-          <h2>Start in DevScreen. Do not create OpsLab yet.</h2>
-          <div class="checklist" aria-label="First session checklist">
-            <label class="check"><input type="checkbox" data-check="dirty"><span>Preserve the existing modified README and untracked work-plan.html.</span></label>
-            <label class="check"><input type="checkbox" data-check="baseline"><span>Fix the verified dropdown formatting, unused import, and sign-out type error.</span></label>
-            <label class="check"><input type="checkbox" data-check="typecheck"><span>Add a <code>typecheck</code> script using <code>tsc --noEmit</code>.</span></label>
-            <label class="check"><input type="checkbox" data-check="test"><span>Add the first meaningful server-side test, preferably environment validation.</span></label>
-            <label class="check"><input type="checkbox" data-check="ci"><span>Create the CI workflow only after every command works locally.</span></label>
+        <aside class="progress-panel" aria-label="Overall progress">
+          <div class="progress-value">
+            <strong id="progress-percent">0%</strong>
+            <span id="progress-count">0 of 12 phases</span>
           </div>
-          <pre aria-label="Example validation commands"># Run from the DevScreen repo
-pnpm lint
-pnpm exec tsc --noEmit
-pnpm test
-pnpm build
+          <div class="progress-track" aria-hidden="true">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <p class="status-line" id="status-line">Start with Phase 01: DevScreen baseline and CI.</p>
+        </aside>
+      </section>
 
-# Later, after health routes exist
-curl -i http://localhost:3000/api/health/live
-curl -i http://localhost:3000/api/health/ready</pre>
-        </div>
-      </div>
-    </section>
+      <section class="track-grid" aria-label="Project boundaries">
+        <article class="track devscreen">
+          <span class="track-label">Real product</span>
+          <h2>DevScreen</h2>
+          <p>CI, configuration, health, migrations, evaluation telemetry, deployment safety, and incident diagnosis.</p>
+        </article>
+        <article class="track opslab">
+          <span class="track-label">Disposable practice system</span>
+          <h2>OpsLab</h2>
+          <p>TypeScript incident API, Docker, Terraform, Cloud Run, OpenTelemetry, Kubernetes, Argo CD, and Kargo.</p>
+        </article>
+      </section>
 
-    <section id="rules">
-      <div class="shell">
-        <div class="section-head"><h2>Working rules</h2><p>Keep product progress ahead of infrastructure theatre.</p></div>
-        <div class="rules">
-          <div class="rule"><strong>No Docker in DevScreen.</strong> Container learning stays in OpsLab.</div>
-          <div class="rule"><strong>No blind copying.</strong> Read, close the docs, implement, then compare.</div>
-          <div class="rule"><strong>Break each phase.</strong> The failure diagnosis is part of the deliverable.</div>
-          <div class="rule"><strong>Protect user data.</strong> Never log answers, resumes, prompts, tokens, or secrets.</div>
-          <div class="rule"><strong>Keep evidence.</strong> Save CI runs, plans, traces, dashboards, and incident notes.</div>
-          <div class="rule"><strong>One GitOps path.</strong> Learn Argo CD with Kargo before comparing Flux.</div>
-        </div>
-      </div>
-    </section>
+      <p class="constraint">
+        <strong>Hard boundary:</strong> Do not add Docker, Compose, Cloud Run, Kubernetes, Argo CD, or Kargo to DevScreen for this plan.
+      </p>
 
-    <section>
-      <div class="shell">
-        <div class="section-head"><h2>Official references</h2><p>Use docs as reference material, not as code to paste blindly.</p></div>
-        <div class="resources">
-          <a href="https://docs.docker.com/get-started/" target="_blank" rel="noreferrer">Docker foundations</a>
-          <a href="https://developer.hashicorp.com/terraform/tutorials/gcp-get-started" target="_blank" rel="noreferrer">Terraform on Google Cloud</a>
-          <a href="https://cloud.google.com/run/docs/overview/what-is-cloud-run" target="_blank" rel="noreferrer">Cloud Run overview</a>
-          <a href="https://opentelemetry.io/docs/concepts/signals/" target="_blank" rel="noreferrer">OpenTelemetry signals</a>
-          <a href="https://argo-cd.readthedocs.io/en/stable/" target="_blank" rel="noreferrer">Argo CD documentation</a>
-          <a href="https://docs.kargo.io/user-guide/core-concepts" target="_blank" rel="noreferrer">Kargo core concepts</a>
-        </div>
-      </div>
-    </section>
-  </main>
+      <nav class="phase-nav" id="phase-nav" aria-label="Jump to phase"></nav>
+      <section class="phase-list" id="phase-list" aria-label="DevOps learning phases"></section>
 
-  <footer><div class="shell">DevScreen proves product operations. OpsLab proves platform operations.</div></footer>
+      <aside class="rule">
+        <strong>Scope guard</strong>
+        <p>Do not add microservices, Kafka, service mesh, GKE, or Flux. Finish the DevScreen product flow and the OpsLab deployment path before expanding the stack.</p>
+      </aside>
 
-  <script>
-    const checks = document.querySelectorAll('[data-check]');
-    checks.forEach((check) => {
-      const key = `devops-path:${check.dataset.check}`;
-      check.checked = localStorage.getItem(key) === 'true';
-      check.addEventListener('change', () => localStorage.setItem(key, String(check.checked)));
-    });
-  </script>
-</body>
+      <nav class="references" aria-label="Official references">
+        <a href="https://docs.docker.com/get-started/" target="_blank" rel="noreferrer">Docker</a>
+        <a href="https://developer.hashicorp.com/terraform/tutorials/gcp-get-started" target="_blank" rel="noreferrer">Terraform on GCP</a>
+        <a href="https://cloud.google.com/run/docs/overview/what-is-cloud-run" target="_blank" rel="noreferrer">Cloud Run</a>
+        <a href="https://opentelemetry.io/docs/concepts/signals/" target="_blank" rel="noreferrer">OpenTelemetry</a>
+        <a href="https://argo-cd.readthedocs.io/en/stable/" target="_blank" rel="noreferrer">Argo CD</a>
+        <a href="https://docs.kargo.io/user-guide/core-concepts" target="_blank" rel="noreferrer">Kargo</a>
+      </nav>
+    </main>
+
+    <script>
+      const phases = [
+        {
+          track: "DevScreen",
+          title: "Baseline and CI",
+          goal: "Make the current repository clean and prevent broken changes from merging.",
+          checks: [
+            "Biome completes without the dropdown formatting error or unused varchar warning",
+            "pnpm build passes after correcting the invalid sign-out callbackURL option",
+            "A typecheck script and at least one meaningful server-side test exist",
+            "GitHub Actions runs lint, type-check, tests, and the production build on every pull request",
+          ],
+          example: "Run <code>pnpm lint</code>, <code>pnpm exec tsc --noEmit</code>, the test command, and <code>pnpm build</code> locally. Push a deliberate type error and prove the workflow blocks it.",
+        },
+        {
+          track: "DevScreen",
+          title: "Health and failure clarity",
+          goal: "Expose configuration and dependency failures without leaking sensitive values.",
+          checks: [
+            "Required database, auth, AI, and application URL variables are validated",
+            "The liveness route confirms the application process can respond",
+            "The readiness route performs a lightweight database check",
+            "Structured logs include request ID, route, status, and duration without secrets or user answers",
+          ],
+          example: "Remove <code>DATABASE_URL</code>. Startup or readiness must name the missing variable and return a useful failure without printing the connection string.",
+        },
+        {
+          track: "OpsLab",
+          title: "Build the tiny operations API",
+          goal: "Create a disposable TypeScript service designed to be deployed, broken, and recovered.",
+          checks: [
+            "Create, list, and resolve incident endpoints work against PostgreSQL",
+            "Liveness and database readiness endpoints have separate behavior",
+            "Slow and error debug routes are unavailable in production",
+            "Unit and API integration tests run from a clean clone using documented commands",
+          ],
+          example: "Create an incident, list it, resolve it, then call <code>/debug/slow?ms=1000</code> locally to create a predictable latency signal for later telemetry work.",
+        },
+        {
+          track: "OpsLab",
+          title: "Docker and Compose",
+          goal: "Package OpsLab reproducibly without touching the DevScreen repository.",
+          checks: [
+            "The API uses a multi-stage Dockerfile and runs as a non-root user",
+            "Compose starts the API and PostgreSQL with health checks",
+            "The process handles termination signals and shuts down cleanly",
+            "Wrong ports, database hostnames, commands, and read-only filesystems can be diagnosed from evidence",
+          ],
+          example: "Delete local <code>node_modules</code>, start the complete system with Compose, then change the database hostname and identify the failure from container logs.",
+        },
+        {
+          track: "OpsLab",
+          title: "Container CI",
+          goal: "Produce immutable, scanned images that map back to source commits.",
+          checks: [
+            "CI runs formatting, type-checking, tests, and the image build",
+            "Dependency and container scans run before publication",
+            "Images publish only from protected main using the commit SHA tag",
+            "A failing test prevents the image publication job",
+          ],
+          example: "Publish an image tagged with the full commit SHA, inspect its digest, then introduce a failing test and prove no new image appears.",
+        },
+        {
+          track: "OpsLab",
+          title: "Terraform and Google Cloud",
+          goal: "Create disposable cloud infrastructure through reviewed code instead of manual console work.",
+          checks: [
+            "Terraform provisions required APIs, Artifact Registry, IAM, secrets, budget, and Cloud Run",
+            "Infrastructure changes produce a reviewed plan before apply",
+            "GitHub authenticates with workload identity federation instead of a long-lived key",
+            "Manual drift and a missing IAM permission can be detected and explained",
+          ],
+          example: "Change one managed setting in the console, run <code>terraform plan</code>, and identify the exact drift before restoring the declared state.",
+        },
+        {
+          track: "OpsLab",
+          title: "Cloud Run deployment",
+          goal: "Deploy, inspect, break, and roll back immutable application revisions.",
+          checks: [
+            "CI deploys the commit-SHA image to Cloud Run using keyless authentication",
+            "Secrets, service identity, concurrency, and scaling configuration are explicit",
+            "Revision logs and health behavior reveal a bad deployment",
+            "A known-good revision can be restored without using the console as the main workflow",
+          ],
+          example: "Deploy an image with a broken startup command, identify the failed revision from logs, then restore traffic to the last healthy revision.",
+        },
+        {
+          track: "OpsLab",
+          title: "Operational telemetry",
+          goal: "Use logs, metrics, and traces together to diagnose controlled failures.",
+          checks: [
+            "OpenTelemetry traces cover HTTP handling and database work",
+            "JSON logs include trace ID, version, environment, route, status, and duration",
+            "A dashboard exposes request rate, errors, duration, and saturation",
+            "Slow routes, intermittent errors, and connection-pool exhaustion can be isolated using correlated signals",
+          ],
+          example: "Call <code>/debug/slow</code>. Use a latency metric to locate the time window, a trace to find the slow span, and logs to identify the request and deployed version.",
+        },
+        {
+          track: "DevScreen",
+          title: "Evaluation telemetry",
+          goal: "Make the product's core AI evaluation flow diagnosable without exposing private content.",
+          checks: [
+            "A trace covers submit attempt, load answers, AI evaluation, JSON validation, and report persistence",
+            "Metrics expose evaluation count, failure rate, and p95 duration",
+            "Sustained failures or excessive evaluation latency trigger an actionable alert",
+            "Logs exclude resumes, answers, prompts, model output, credentials, and tokens",
+          ],
+          example: "Return intentionally invalid AI JSON in a safe environment and follow one correlation ID from submission to validation failure without reading the user's answer content.",
+        },
+        {
+          track: "OpsLab",
+          title: "Local Kubernetes",
+          goal: "Learn core runtime objects locally before paying for a managed cluster.",
+          checks: [
+            "OpsLab runs on kind or k3d using a Deployment and Service",
+            "Configuration, secrets, readiness, liveness, requests, and limits are declared",
+            "Kustomize overlays separate environment-specific values",
+            "A failed readiness probe and an insufficient resource limit can be diagnosed",
+          ],
+          example: "Point the readiness probe at the wrong path, inspect pod events and logs, correct the manifest, and watch the rollout become healthy.",
+        },
+        {
+          track: "OpsLab",
+          title: "Argo CD reconciliation",
+          goal: "Make Git the source of truth for Kubernetes desired state.",
+          checks: [
+            "Kubernetes configuration lives in a separate GitOps repository",
+            "CI creates artifacts while Argo CD owns cluster reconciliation",
+            "A Git commit changes the desired image version and syncs dev",
+            "Manual cluster drift is detected or corrected and rollback happens through Git",
+          ],
+          example: "Edit the live Deployment manually, observe Argo CD report drift, and restore the declared state without adding direct production kubectl deployment steps to CI.",
+        },
+        {
+          track: "OpsLab",
+          title: "Kargo promotion",
+          goal: "Promote verified immutable artifacts through environments with an approval boundary.",
+          checks: [
+            "A Warehouse watches the immutable OpsLab image source",
+            "New Freight promotes automatically into dev",
+            "Verification must pass before staging receives the artifact",
+            "Production requires manual approval and failed verification blocks promotion",
+          ],
+          example: "Publish one commit-SHA image, trace it into Freight and dev, fail the verification step, and prove the artifact never reaches production.",
+        },
+      ];
+
+      const storageKey = "devscreen-opslab-devops-path-v2";
+      const list = document.querySelector("#phase-list");
+      const nav = document.querySelector("#phase-nav");
+      const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
+
+      function phaseId(index) {
+        return `phase-${String(index + 1).padStart(2, "0")}`;
+      }
+
+      phases.forEach((phase, phaseIndex) => {
+        const id = phaseId(phaseIndex);
+        const article = document.createElement("article");
+        article.className = "phase";
+        article.id = id;
+        article.dataset.track = phase.track;
+        article.innerHTML = `
+          <div class="phase-index">${String(phaseIndex + 1).padStart(2, "0")}</div>
+          <div class="phase-body">
+            <div class="phase-header">
+              <div>
+                <span class="phase-kicker">${phase.track}</span>
+                <h2 class="phase-title">${phase.title}</h2>
+                <p class="phase-goal">${phase.goal}</p>
+              </div>
+              <label class="phase-complete" title="Complete every acceptance check first">
+                <input type="checkbox" class="phase-checkbox" data-phase="${phaseIndex}" disabled />
+                Phase done
+              </label>
+            </div>
+            <div class="criteria" aria-label="Acceptance checks">
+              ${phase.checks.map((check, checkIndex) => `
+                <label class="criterion">
+                  <input type="checkbox" class="criterion-checkbox" data-phase="${phaseIndex}" data-check="${checkIndex}" />
+                  <span>${check}</span>
+                </label>
+              `).join("")}
+            </div>
+            <details>
+              <summary>Example evidence for completion</summary>
+              <p class="example">${phase.example}</p>
+            </details>
+          </div>
+        `;
+        list.append(article);
+
+        const link = document.createElement("a");
+        link.href = `#${id}`;
+        link.textContent = String(phaseIndex + 1).padStart(2, "0");
+        link.setAttribute("aria-label", `Jump to phase ${phaseIndex + 1}: ${phase.title}`);
+        nav.append(link);
+      });
+
+      function saveState() {
+        const state = {};
+        document.querySelectorAll(".criterion-checkbox").forEach((checkbox) => {
+          state[`p${checkbox.dataset.phase}c${checkbox.dataset.check}`] = checkbox.checked;
+        });
+        document.querySelectorAll(".phase-checkbox").forEach((checkbox) => {
+          state[`p${checkbox.dataset.phase}done`] = checkbox.checked;
+        });
+        localStorage.setItem(storageKey, JSON.stringify(state));
+      }
+
+      function updatePhase(phaseIndex) {
+        const article = document.querySelector(`#${phaseId(phaseIndex)}`);
+        const criteria = [...article.querySelectorAll(".criterion-checkbox")];
+        const done = article.querySelector(".phase-checkbox");
+        const allChecked = criteria.every((checkbox) => checkbox.checked);
+        done.disabled = !allChecked;
+        if (!allChecked) done.checked = false;
+        article.classList.toggle("is-done", done.checked);
+        document.querySelectorAll("#phase-nav a")[phaseIndex].classList.toggle("is-done", done.checked);
+      }
+
+      function updateProgress() {
+        const completed = [...document.querySelectorAll(".phase-checkbox")].filter((checkbox) => checkbox.checked).length;
+        const percent = Math.round((completed / phases.length) * 100);
+        document.querySelector("#progress-percent").textContent = `${percent}%`;
+        document.querySelector("#progress-count").textContent = `${completed} of ${phases.length} phases`;
+        document.querySelector("#progress-fill").style.width = `${percent}%`;
+
+        const status = document.querySelector("#status-line");
+        if (completed === phases.length) {
+          status.textContent = "Learning path complete. Repeat the failure drills once more.";
+        } else {
+          const next = [...document.querySelectorAll(".phase-checkbox")].findIndex((checkbox) => !checkbox.checked);
+          status.textContent = `Next: Phase ${String(next + 1).padStart(2, "0")} - ${phases[next].title}.`;
+        }
+      }
+
+      document.querySelectorAll(".criterion-checkbox").forEach((checkbox) => {
+        checkbox.checked = Boolean(saved[`p${checkbox.dataset.phase}c${checkbox.dataset.check}`]);
+        checkbox.addEventListener("change", () => {
+          updatePhase(Number(checkbox.dataset.phase));
+          updateProgress();
+          saveState();
+        });
+      });
+
+      document.querySelectorAll(".phase-checkbox").forEach((checkbox) => {
+        const phaseIndex = Number(checkbox.dataset.phase);
+        updatePhase(phaseIndex);
+        checkbox.checked = checkbox.disabled ? false : Boolean(saved[`p${phaseIndex}done`]);
+        document.querySelector(`#${phaseId(phaseIndex)}`).classList.toggle("is-done", checkbox.checked);
+        document.querySelectorAll("#phase-nav a")[phaseIndex].classList.toggle("is-done", checkbox.checked);
+        checkbox.addEventListener("change", () => {
+          document.querySelector(`#${phaseId(phaseIndex)}`).classList.toggle("is-done", checkbox.checked);
+          document.querySelectorAll("#phase-nav a")[phaseIndex].classList.toggle("is-done", checkbox.checked);
+          updateProgress();
+          saveState();
+        });
+      });
+
+      document.querySelector("#reset-progress").addEventListener("click", () => {
+        if (!window.confirm("Reset every phase and acceptance check?")) return;
+        localStorage.removeItem(storageKey);
+        document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+          checkbox.checked = false;
+        });
+        phases.forEach((_, index) => updatePhase(index));
+        updateProgress();
+      });
+
+      updateProgress();
+    </script>
+  </body>
 </html>
