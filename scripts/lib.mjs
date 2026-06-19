@@ -3,7 +3,7 @@ import path from "node:path";
 export const root = path.resolve(import.meta.dirname, "..");
 export const registryPath = path.join(root, "data", "projects.json");
 export const projectsPath = path.join(root, "projects");
-export const allowedStatuses = new Set(["active", "complete", "archived"]);
+export const allowedStatuses = new Set(["active", "inactive", "complete", "archived"]);
 
 export function slugify(value) {
   return value
@@ -30,4 +30,13 @@ export function parseArgs(args) {
     index += 1;
   }
   return result;
+}
+
+export function updateProjectStatus(registry, slug, status, updatedAt = new Date().toISOString()) {
+  if (!allowedStatuses.has(status)) throw new Error(`Invalid status: ${status}`);
+  const project = registry.find((item) => item.slug === slug);
+  if (!project) throw new Error(`Unknown project: ${slug}`);
+  project.status = status;
+  project.updatedAt = updatedAt;
+  return project;
 }

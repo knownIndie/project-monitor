@@ -38,8 +38,20 @@ Cards are ordered automatically:
 1. Pinned projects
 2. Active projects
 3. Complete projects
-4. Archived projects
-5. Most recently updated within each group
+4. Inactive projects
+5. Archived projects
+6. Most recently updated within each group
+
+## Marking a project active or inactive
+
+Codex runs the status command on the user's behalf, then commits and pushes the metadata change:
+
+```sh
+npm run status -- --slug camera-phone --status inactive
+npm run status -- --slug camera-phone --status active
+```
+
+Status is stored in `data/projects.json`, so it remains consistent across browsers and deployments. A toggle on the public website would only change one browser unless the project gained a database and authenticated write API.
 
 ## Important source-site constraint
 

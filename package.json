@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "publish": "node scripts/publish.mjs",
+    "status": "node scripts/status.mjs",
     "validate": "node scripts/validate.mjs",
     "test": "node --test"
   },

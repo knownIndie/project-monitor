@@ -29,13 +29,56 @@ main {
   padding-bottom: 56px;
 }
 
+.hero-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+
 .eyebrow {
-  margin: 0 0 18px;
+  margin: 0;
   color: var(--accent);
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0.14em;
+}
+
+.social-links { display: flex; gap: 8px; }
+
+.social-links a {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--ink);
+  transition: border-color 160ms ease, background 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.social-links a:hover, .social-links a:focus-visible {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: white;
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.social-links svg { width: 17px; height: 17px; fill: currentColor; }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 h1, h2, h3, p { margin-top: 0; }
@@ -100,16 +143,18 @@ h2 {
 }
 
 .project-card {
+  position: relative;
   min-height: 265px;
   display: flex;
   flex-direction: column;
   padding: 24px;
   border: 1px solid var(--line);
   background: var(--card);
+  cursor: pointer;
   transition: transform 160ms ease, border-color 160ms ease;
 }
 
-.project-card:hover { transform: translateY(-3px); border-color: var(--ink); }
+.project-card:hover, .project-card:focus-within { transform: translateY(-3px); border-color: var(--ink); }
 .project-card.is-pinned { border-top: 4px solid var(--accent); padding-top: 21px; }
 
 .card-topline {
@@ -134,7 +179,9 @@ h2 {
 }
 
 .status-active { color: var(--active); }
+.status-inactive { color: #77776c; }
 .status-complete { color: #315da8; }
+.status-archived { color: #8a5d4a; }
 
 h3 { margin-bottom: 10px; font-size: 1.45rem; letter-spacing: -0.025em; }
 
@@ -147,6 +194,10 @@ h3 { margin-bottom: 10px; font-size: 1.45rem; letter-spacing: -0.025em; }
 
 .card-links { display: flex; align-items: center; gap: 18px; margin-top: auto; }
 .card-links a { color: var(--ink); font-size: 0.88rem; font-weight: 650; text-decoration: none; }
+.open-project::after { position: absolute; inset: 0; content: ""; }
+.source-link { position: relative; z-index: 1; }
+.open-project:focus-visible { outline: none; }
+.project-card:has(.open-project:focus-visible) { outline: 3px solid var(--accent); outline-offset: 3px; }
 .card-links a:hover { color: var(--accent); }
 .source-link[hidden] { display: none; }
 .empty-state { padding: 48px 0; color: var(--muted); }

@@ -3,13 +3,15 @@ const emptyState = document.querySelector("#empty-state");
 const template = document.querySelector("#project-card-template");
 const filters = document.querySelectorAll("[data-filter]");
 
-const statusRank = { active: 0, complete: 1, archived: 2 };
+const statusRank = { active: 0, complete: 1, inactive: 2, archived: 3 };
 let projects = [];
 
 function sortProjects(items) {
   return [...items].sort((a, b) => {
     if (a.pinned !== b.pinned) return Number(b.pinned) - Number(a.pinned);
-    if (statusRank[a.status] !== statusRank[b.status]) return statusRank[a.status] - statusRank[b.status];
+    const aRank = statusRank[a.status] ?? Number.MAX_SAFE_INTEGER;
+    const bRank = statusRank[b.status] ?? Number.MAX_SAFE_INTEGER;
+    if (aRank !== bRank) return aRank - bRank;
     return new Date(b.updatedAt) - new Date(a.updatedAt);
   });
 }
@@ -33,7 +35,9 @@ function render(filter = "all") {
     date.dateTime = project.updatedAt;
     date.textContent = `Updated ${new Intl.DateTimeFormat("en", { dateStyle: "medium" }).format(new Date(project.updatedAt))}`;
 
-    card.querySelector(".open-project").href = project.path;
+    const openProject = card.querySelector(".open-project");
+    openProject.href = project.path;
+    openProject.setAttribute("aria-label", `Open ${project.title}`);
     const source = card.querySelector(".source-link");
     source.hidden = !project.sourceRepository;
     if (project.sourceRepository) source.href = project.sourceRepository;

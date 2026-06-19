@@ -13,7 +13,7 @@ function usage() {
 Options:
   --slug <stable-slug>          Required when intentionally updating an existing project
   --description <text>         Defaults to the HTML meta description
-  --status <status>             active (default), complete, or archived
+  --status <status>             active (default), inactive, complete, or archived
   --source-repository <url>     Optional source repository URL
   --pinned                      Keep above unpinned projects`;
 }
