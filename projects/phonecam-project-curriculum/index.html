@@ -64,6 +64,77 @@
     @media (max-width:560px) { .hero { padding-top:3.2rem; } h1 { font-size:3.7rem; } .layout { padding-inline:.75rem; } .summary { grid-template-columns:1fr 1fr; } .stat { padding:1rem; } .project-head, .project-content, .support-card { padding-left:1.1rem; padding-right:1.1rem; } .project-index { width:2.6rem; height:2.6rem; } }
     @media print { .hero { padding:2rem; } .sidebar { display:none; } .layout { display:block; margin:0; } .project-card, .support-card { break-inside:avoid; box-shadow:none; } }
   </style>
+  <style>
+    :root { color-scheme:light; --page:#f4f6f5; --surface:#fff; --ink:#17201c; --muted:#64706a; --line:#d9dfdc; --green:#147a50; --green-soft:#e8f5ee; --amber:#a55c08; --amber-soft:#fff4df; --code:#202824; --shadow:0 10px 28px rgb(23 32 28 / 7%); }
+    body { min-width:320px; background:var(--page); color:var(--ink); font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; line-height:1.5; }
+    button,input { font:inherit; }
+    button,label,summary { -webkit-tap-highlight-color:transparent; }
+    .topbar { position:sticky; top:0; z-index:10; padding:0; border-bottom:1px solid var(--line); background:rgb(255 255 255 / 94%); color:var(--ink); backdrop-filter:blur(12px); }
+    .topbar::after { display:none; }
+    .topbar-inner,.page-shell { width:min(1120px,calc(100% - 32px)); margin:0 auto; }
+    .topbar-inner { display:flex; min-height:60px; align-items:center; justify-content:space-between; gap:16px; }
+    .brand { display:flex; align-items:center; gap:10px; font-weight:750; }
+    .brand-mark { display:grid; width:30px; height:30px; place-items:center; border-radius:6px; background:var(--ink); color:#fff; font-size:13px; }
+    .reset-button { min-height:36px; border:1px solid var(--line); border-radius:6px; background:var(--surface); color:var(--ink); padding:7px 12px; cursor:pointer; }
+    .reset-button:hover { border-color:#aeb8b3; background:#f9faf9; }
+    .page-shell { display:block; padding:44px 0 72px; }
+    .page-shell main { min-width:0; }
+    .intro { display:grid; grid-template-columns:minmax(0,1fr) 280px; gap:40px; align-items:end; padding-bottom:34px; }
+    .intro .eyebrow { margin:0 0 8px; color:var(--green); font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:0; }
+    .intro h1 { max-width:720px; margin:0; font-size:clamp(34px,5vw,58px); line-height:1.04; letter-spacing:0; }
+    .lede { max-width:700px; margin:18px 0 0; color:var(--muted); font-size:17px; }
+    .progress-panel { border-left:3px solid var(--green); padding-left:20px; }
+    .progress-value { display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
+    .progress-value strong { font-size:32px; }
+    .progress-value span,.status-line { color:var(--muted); font-size:13px; }
+    .progress-track { height:9px; margin-top:10px; overflow:hidden; border-radius:4px; background:#dfe5e2; }
+    .progress-fill { width:0; height:100%; background:var(--green); transition:width 220ms ease; }
+    .status-line { margin:10px 0 0; }
+    .phase-nav { position:static; display:flex; gap:8px; overflow-x:auto; max-height:none; margin:0 0 24px; padding:4px 0 10px; border:0; border-radius:0; background:transparent; box-shadow:none; scrollbar-width:thin; }
+    .phase-nav a { display:block; flex:0 0 auto; min-width:auto; border:1px solid var(--line); border-radius:6px; background:var(--surface); color:var(--muted); padding:6px 10px; font-size:13px; text-decoration:none; }
+    .phase-nav a:hover { background:#f9faf9; color:var(--ink); }
+    .phase-nav a.is-done { border-color:#a8d3bc; background:var(--green-soft); color:var(--green); font-weight:700; }
+    .summary { display:none; }
+    .phase-divider { display:flex; align-items:center; gap:12px; margin:30px 0 12px; }
+    .phase-divider::after { content:""; height:1px; flex:1; background:var(--line); }
+    .phase-divider span { color:var(--muted); font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+    .project-card { scroll-margin-top:80px; display:grid; grid-template-columns:60px minmax(0,1fr); margin:0 0 14px; border:1px solid var(--line); border-radius:8px; background:var(--surface); box-shadow:var(--shadow); overflow:hidden; }
+    .project-card.is-done { border-color:#9ecab4; }
+    .project-head { display:contents; }
+    .project-index { display:flex; width:auto; height:auto; align-items:flex-start; justify-content:center; border-radius:0; border-right:1px solid var(--line); background:#fafbfa; padding-top:22px; color:var(--muted); font-size:13px; font-weight:800; }
+    .project-card.is-done .project-index { background:var(--green-soft); color:var(--green); }
+    .project-heading { min-width:0; padding:20px 22px 0; }
+    .project-heading-row { display:flex; align-items:flex-start; justify-content:space-between; gap:20px; }
+    .project-heading h2 { margin:0; font-size:20px; line-height:1.25; letter-spacing:0; }
+    .project-heading .phase { margin:0 0 4px; color:var(--green); font-size:11px; letter-spacing:.08em; }
+    .project-goal { margin:6px 0 0; color:var(--muted); font-size:14px; }
+    .phase-complete { display:flex; flex:0 0 auto; min-height:34px; align-items:center; gap:8px; border:1px solid var(--line); border-radius:6px; padding:5px 9px; color:var(--muted); font-size:13px; font-weight:700; cursor:pointer; }
+    .phase-complete:has(input:checked) { border-color:#9ecab4; background:var(--green-soft); color:var(--green); }
+    input[type="checkbox"] { width:17px; height:17px; margin:0; accent-color:var(--green); cursor:pointer; }
+    input[type="checkbox"]:disabled { cursor:not-allowed; }
+    .project-content { grid-column:2; padding:0 22px 20px; }
+    .criteria { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 20px; margin:20px 0 0; padding:18px 0 0; border-top:1px solid var(--line); }
+    .criterion { display:flex; min-width:0; align-items:flex-start; gap:10px; color:#354039; font-size:14px; cursor:pointer; }
+    .criterion input { flex:0 0 auto; margin-top:2px; }
+    .criterion:has(input:checked) span { color:var(--muted); text-decoration:line-through; }
+    .project-content details { margin-top:18px; border-top:1px dashed var(--line); padding-top:14px; }
+    .project-content summary { width:fit-content; color:var(--amber); font-size:13px; font-weight:800; cursor:pointer; }
+    .detail-content { margin-top:14px; border-left:3px solid #e2a34e; background:var(--amber-soft); padding:14px 18px; color:#5c421f; font-size:14px; }
+    .detail-content h3 { margin:18px 0 6px; color:#704508; font-size:12px; letter-spacing:.08em; text-transform:uppercase; }
+    .detail-content h3:first-child { margin-top:0; }
+    .detail-content p { color:#5c421f; }
+    .detail-content pre { background:var(--code); }
+    .detail-content a { color:#245bda; }
+    .support-card { margin:14px 0; padding:20px 22px; border:1px solid var(--line); border-radius:8px; background:var(--surface); box-shadow:var(--shadow); }
+    .support-card h2 { margin:0 0 12px; font-size:20px; letter-spacing:0; }
+    #github-based-skill-assessment { margin:0 0 24px; }
+    .table-wrap { overflow-x:auto; }
+    table { width:100%; border-collapse:collapse; }
+    th,td { padding:10px; border-bottom:1px solid var(--line); text-align:left; }
+    footer { width:min(1120px,calc(100% - 32px)); margin:0 auto; padding:0 0 34px; color:var(--muted); font-size:12px; text-align:left; }
+    @media (max-width:760px) { .intro { grid-template-columns:1fr; gap:24px; } .progress-panel { max-width:360px; } .project-card { grid-template-columns:44px minmax(0,1fr); } .project-heading { padding:18px 16px 0; } .project-content { padding:0 16px 18px; } .project-heading-row { flex-direction:column; gap:14px; } .criteria { grid-template-columns:1fr; } }
+    @media (max-width:440px) { .topbar-inner,.page-shell,footer { width:min(100% - 20px,1120px); } .brand span:last-child { display:none; } .page-shell { padding-top:30px; } .project-card { grid-template-columns:1fr; } .project-index { justify-content:flex-start; border-right:0; border-bottom:1px solid var(--line); padding:8px 16px; } .project-heading,.project-content { grid-column:1; } }
+  </style>
 </head>
 <body>
   <a class="skip" href="#curriculum">Skip to curriculum</a>
@@ -386,6 +457,161 @@ Session expires in 01:42</code></pre>
 <p>That portfolio tells a coherent story: native systems and media, developer tooling, and full-stack product engineering.</p></section>
     </main>
   </div>
-  <footer>PhoneCam prerequisite project curriculum · Built as a standalone reference page</footer>
+  <footer>PhoneCam prerequisite project curriculum · Progress is stored in this browser</footer>
+  <script>
+    (() => {
+      const storageKey = "phonecam-project-curriculum-v2";
+      const projects = [...document.querySelectorAll(".project-card")];
+      const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
+      const state = saved.projects || {};
+
+      const hero = document.querySelector(".hero");
+      hero.className = "topbar";
+      hero.innerHTML = `
+        <div class="topbar-inner">
+          <div class="brand"><span class="brand-mark">PC</span><span>PhoneCam Project Tracker</span></div>
+          <button class="reset-button" id="reset-progress" type="button">Reset progress</button>
+        </div>`;
+
+      const shell = document.querySelector(".layout");
+      const main = shell.querySelector("main");
+      const nav = shell.querySelector("nav");
+      shell.className = "page-shell";
+      nav.className = "phase-nav";
+      nav.id = "phase-nav";
+      nav.setAttribute("aria-label", "Jump to project");
+      nav.querySelector(".sidebar-title")?.remove();
+
+      const intro = document.createElement("section");
+      intro.className = "intro";
+      intro.setAttribute("aria-labelledby", "page-title");
+      intro.innerHTML = `
+        <div>
+          <p class="eyebrow">Project-by-project curriculum</p>
+          <h1 id="page-title">Build PhoneCam, one verified project at a time.</h1>
+          <p class="lede">Check the acceptance criteria for each project. The completion box unlocks only after every required outcome is verified.</p>
+        </div>
+        <aside class="progress-panel" aria-label="Overall progress">
+          <div class="progress-value"><strong id="progress-percent">0%</strong><span id="progress-count">0 of 13 projects</span></div>
+          <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progress-fill"></div></div>
+          <p class="status-line" id="status-line">Start with Project 00: Native toolchain setup.</p>
+        </aside>`;
+      main.prepend(intro);
+      intro.after(nav);
+
+      const save = () => localStorage.setItem(storageKey, JSON.stringify({ projects: state }));
+
+      projects.forEach((project, projectIndex) => {
+        const id = project.id;
+        const head = project.querySelector(".project-head");
+        const index = project.querySelector(".project-index");
+        const heading = head.querySelector("div:not(.project-index)");
+        const content = project.querySelector(".project-content");
+        const title = heading.querySelector("h2").textContent.trim();
+        const time = content.querySelector(":scope > p");
+        const completionHeading = [...content.querySelectorAll(":scope > h3")].find((item) => /^(testing|completion test|completion standard)$/i.test(item.textContent.trim()));
+        const completionSource = completionHeading?.nextElementSibling;
+        const checks = completionSource?.matches("ul,ol")
+          ? [...completionSource.querySelectorAll(":scope > li")].map((item) => item.textContent.trim())
+          : completionSource?.textContent.trim() ? [completionSource.textContent.trim()] : ["Build, test, and document this project to the stated standard."];
+
+        heading.className = "project-heading";
+        const headingRow = document.createElement("div");
+        headingRow.className = "project-heading-row";
+        const titleBlock = document.createElement("div");
+        titleBlock.append(...heading.childNodes);
+        if (time) {
+          time.className = "project-goal";
+          titleBlock.append(time);
+        }
+        const doneLabel = document.createElement("label");
+        doneLabel.className = "phase-complete";
+        doneLabel.title = "Complete every acceptance check first";
+        doneLabel.innerHTML = `<input type="checkbox" class="project-done" aria-label="Project done" disabled><span>Project done</span>`;
+        headingRow.append(titleBlock, doneLabel);
+        heading.append(headingRow);
+
+        const detail = document.createElement("details");
+        detail.innerHTML = "<summary>Build details and learning resources</summary>";
+        const detailContent = document.createElement("div");
+        detailContent.className = "detail-content";
+        detailContent.append(...content.childNodes);
+        detail.append(detailContent);
+
+        const criteria = document.createElement("div");
+        criteria.className = "criteria";
+        criteria.setAttribute("aria-label", "Acceptance checks");
+        const projectState = state[id] || { checks: [], done: false };
+        state[id] = projectState;
+
+        checks.forEach((check, checkIndex) => {
+          const label = document.createElement("label");
+          label.className = "criterion";
+          label.innerHTML = `<input type="checkbox" aria-label="${check.replaceAll('"', '&quot;')}"><span></span>`;
+          label.querySelector("span").textContent = check;
+          const input = label.querySelector("input");
+          input.checked = Boolean(projectState.checks[checkIndex]);
+          input.addEventListener("change", () => {
+            projectState.checks[checkIndex] = input.checked;
+            syncProject();
+            save();
+            updateProgress();
+          });
+          criteria.append(label);
+        });
+
+        content.append(criteria, detail);
+        const doneInput = doneLabel.querySelector("input");
+        doneInput.checked = Boolean(projectState.done);
+        doneInput.addEventListener("change", () => {
+          projectState.done = doneInput.checked;
+          save();
+          syncProject();
+          updateProgress();
+        });
+
+        function syncProject() {
+          const checkInputs = [...criteria.querySelectorAll("input")];
+          const allChecked = checkInputs.every((input) => input.checked);
+          doneInput.disabled = !allChecked;
+          if (!allChecked) {
+            doneInput.checked = false;
+            projectState.done = false;
+          }
+          project.classList.toggle("is-done", doneInput.checked);
+          nav.querySelector(`a[href="#${id}"]`)?.classList.toggle("is-done", doneInput.checked);
+        }
+
+        const navLink = nav.querySelector(`a[href="#${id}"]`);
+        if (navLink) {
+          navLink.textContent = String(projectIndex).padStart(2, "0");
+          navLink.setAttribute("aria-label", `Jump to project ${projectIndex}: ${title}`);
+          navLink.title = title;
+        }
+        index.textContent = String(projectIndex).padStart(2, "0");
+        syncProject();
+      });
+
+      function updateProgress() {
+        const done = projects.filter((project) => project.classList.contains("is-done")).length;
+        const percent = Math.round((done / projects.length) * 100);
+        document.querySelector("#progress-percent").textContent = `${percent}%`;
+        document.querySelector("#progress-count").textContent = `${done} of ${projects.length} projects`;
+        document.querySelector("#progress-fill").style.width = `${percent}%`;
+        const next = projects.find((project) => !project.classList.contains("is-done"));
+        document.querySelector("#status-line").textContent = next
+          ? `Next: Project ${next.querySelector(".project-index").textContent} - ${next.querySelector("h2").textContent}.`
+          : "Curriculum complete. PhoneCam is ready for final verification.";
+      }
+
+      document.querySelector("#reset-progress").addEventListener("click", () => {
+        if (!window.confirm("Reset every PhoneCam project check and completion state?")) return;
+        localStorage.removeItem(storageKey);
+        window.location.reload();
+      });
+
+      updateProgress();
+    })();
+  </script>
 </body>
 </html>
