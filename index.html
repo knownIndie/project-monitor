@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A live index of Aryan's projects, experiments, and working notes." />
+    <title>Project Monitor</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 rx=%2212%22 fill=%22%23181814%22/><circle cx=%2232%22 cy=%2232%22 r=%2210%22 fill=%22%23d84d2f%22/></svg>" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+      <header class="hero">
+        <p class="eyebrow">PROJECT MONITOR</p>
+        <h1>Work, not claims.</h1>
+        <p class="intro">A running record of what I am building, what is complete, and what changed recently.</p>
+      </header>
+
+      <section aria-labelledby="projects-heading">
+        <div class="section-heading">
+          <h2 id="projects-heading">Projects</h2>
+          <nav class="filters" aria-label="Filter projects">
+            <button class="filter is-active" type="button" data-filter="all">All</button>
+            <button class="filter" type="button" data-filter="active">Active</button>
+            <button class="filter" type="button" data-filter="complete">Complete</button>
+            <button class="filter" type="button" data-filter="archived">Archived</button>
+          </nav>
+        </div>
+        <div id="project-grid" class="project-grid" aria-live="polite"></div>
+        <p id="empty-state" class="empty-state" hidden>No projects match this filter.</p>
+      </section>
+    </main>
+
+    <template id="project-card-template">
+      <article class="project-card">
+        <div class="card-topline">
+          <span class="status"></span>
+          <time></time>
+        </div>
+        <h3></h3>
+        <p class="description"></p>
+        <div class="card-links">
+          <a class="open-project">Open project <span aria-hidden="true">↗</span></a>
+          <a class="source-link" target="_blank" rel="noreferrer">Source</a>
+        </div>
+      </article>
+    </template>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
