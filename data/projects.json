@@ -19,5 +19,15 @@
     "updatedAt": "2026-06-19T05:06:41.144Z",
     "path": "/projects/kontxt-cli-15-day-social-campaign/",
     "sourceRepository": "https://github.com/knownIndie/kontxt-cli"
+  },
+  {
+    "slug": "devscreen-opslab-devops-path",
+    "title": "DevScreen + OpsLab DevOps Path",
+    "description": "A DevOps learning path split between the real DevScreen product and a disposable TypeScript operations lab.",
+    "status": "active",
+    "pinned": false,
+    "publishedAt": "2026-06-19T05:12:03.383Z",
+    "updatedAt": "2026-06-19T05:12:03.383Z",
+    "path": "/projects/devscreen-opslab-devops-path/"
   }
 ]
